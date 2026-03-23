@@ -40,6 +40,53 @@ namespace chess
             }
         }
 
+        public bool VerifierCollision(Coup coup)
+        {
+            Piece piece = ObtenirPiece(coup.PositionDepart);
+
+            if (piece == null || piece is Cavalier || piece is Roi)
+            {
+                return false;
+            }
+
+            int differenceLigne = coup.PositionArrivee.Ligne - coup.PositionDepart.Ligne;
+            int differenceColonne = coup.PositionArrivee.Colonne - coup.PositionDepart.Colonne;
+            int pasLigne = Math.Sign(differenceLigne);
+            int pasColonne = Math.Sign(differenceColonne);
+
+            if (piece is Pion)
+            {
+                if (differenceColonne != 0)
+                {
+                    return false;
+                }
+
+                if (Math.Abs(differenceLigne) == 2)
+                {
+                    int ligneIntermediaire = coup.PositionDepart.Ligne + pasLigne;
+                    return ObtenirPiece(new Position(ligneIntermediaire, coup.PositionDepart.Colonne)) != null;
+                }
+
+                return false;
+            }
+
+            int ligneCourante = coup.PositionDepart.Ligne + pasLigne;
+            int colonneCourante = coup.PositionDepart.Colonne + pasColonne;
+
+            while (ligneCourante != coup.PositionArrivee.Ligne || colonneCourante != coup.PositionArrivee.Colonne)
+            {
+                if (ObtenirPiece(new Position(ligneCourante, colonneCourante)) != null)
+                {
+                    return true;
+                }
+
+                ligneCourante += pasLigne;
+                colonneCourante += pasColonne;
+            }
+
+            return false;
+        }
+
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();

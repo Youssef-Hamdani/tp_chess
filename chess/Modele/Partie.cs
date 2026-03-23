@@ -39,6 +39,11 @@ namespace chess
                 return false;
             }
 
+            if (Plateau.VerifierCollision(coup))
+            {
+                return false;
+            }
+
             Plateau.DeplacerPiece(coup);
             return true;
         }
