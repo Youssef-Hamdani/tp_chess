@@ -42,9 +42,9 @@ namespace chess
                 new Position((int)nudArriveeLigne.Value, (int)nudArriveeColonne.Value));
         }
 
-        public void MettreAJourTour(string joueur)
+        public void MettreAJourEtat(string etat)
         {
-            lblTour.Text = "Tour courant : " + joueur;
+            lblTour.Text = "Etat : " + etat;
         }
 
         private void InitialiserGrille()
