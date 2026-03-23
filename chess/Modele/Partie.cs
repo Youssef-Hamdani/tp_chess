@@ -38,11 +38,6 @@ namespace chess
             return true;
         }
 
-        public RaisonCoupInvalide ValiderEtJouerCoup(Coup coup)
-        {
-            return JouerCoup(coup) ? RaisonCoupInvalide.Aucune : RaisonCoupInvalide.CoupNull;
-        }
-
         public bool VerifierEchec()
         {
             return false;

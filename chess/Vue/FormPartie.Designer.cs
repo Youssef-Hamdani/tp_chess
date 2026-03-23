@@ -134,7 +134,7 @@ namespace chess
             this.lblTour.Name = "lblTour";
             this.lblTour.Size = new System.Drawing.Size(68, 13);
             this.lblTour.TabIndex = 7;
-            this.lblTour.Text = "Tour courant";
+            this.lblTour.Text = "Etat";
             // 
             // lblDepart
             // 

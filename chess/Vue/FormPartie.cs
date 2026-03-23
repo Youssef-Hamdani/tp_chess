@@ -42,9 +42,9 @@ namespace chess
                 new Position((int)nudArriveeLigne.Value, (int)nudArriveeColonne.Value));
         }
 
-        public void MettreAJourTour(string joueur)
+        public void MettreAJourEtat(string etat)
         {
-            lblTour.Text = "Tour courant : " + joueur;
+            lblTour.Text = "Etat : " + etat;
         }
 
         private void InitialiserGrille()
@@ -90,7 +90,9 @@ namespace chess
 
             if (string.IsNullOrWhiteSpace(piece))
             {
-                AfficherMessage("Selectionne une case qui contient une piece pour le depart.");
+                nudArriveeLigne.Value = e.RowIndex;
+                nudArriveeColonne.Value = e.ColumnIndex;
+                AfficherMessage("Arrivee selectionnee en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
                 return;
             }
 

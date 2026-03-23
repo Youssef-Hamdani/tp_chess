@@ -37,7 +37,7 @@ namespace chess
             }
 
             formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-            formPartie.MettreAJourTour("Sprint 1 : deplacement simple");
+            formPartie.MettreAJourEtat("Pret pour un deplacement simple");
             formPartie.AfficherMessage("Nouvelle partie initialisee.");
             formPartie.Show();
             formPartie.BringToFront();
@@ -55,10 +55,12 @@ namespace chess
             if (succes)
             {
                 formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
+                formPartie.MettreAJourEtat("Dernier coup accepte");
                 formPartie.AfficherMessage("Coup joue.");
             }
             else
             {
+                formPartie.MettreAJourEtat("Dernier coup refuse");
                 formPartie.AfficherMessage("Coup invalide.");
             }
         }
