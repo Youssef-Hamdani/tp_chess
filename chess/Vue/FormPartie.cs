@@ -90,7 +90,9 @@ namespace chess
 
             if (string.IsNullOrWhiteSpace(piece))
             {
-                AfficherMessage("Selectionne une case qui contient une piece pour le depart.");
+                nudArriveeLigne.Value = e.RowIndex;
+                nudArriveeColonne.Value = e.ColumnIndex;
+                AfficherMessage("Arrivee selectionnee en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
                 return;
             }
 
