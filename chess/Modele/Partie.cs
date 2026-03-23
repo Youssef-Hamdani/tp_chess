@@ -34,6 +34,11 @@ namespace chess
                 return false;
             }
 
+            if (!piece.MouvementValide(coup, Plateau))
+            {
+                return false;
+            }
+
             Plateau.DeplacerPiece(coup);
             return true;
         }
