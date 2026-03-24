@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace chess
@@ -68,6 +69,9 @@ namespace chess
                 dgvPlateau.Rows[ligne].HeaderCell.Value = ligne.ToString();
                 dgvPlateau.Rows[ligne].Height = 40;
             }
+
+            dgvPlateau.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvPlateau.DefaultCellStyle.Font = new Font("Segoe UI Symbol", 18F, FontStyle.Regular);
         }
 
         private void BtnJouerCoup_Click(object sender, EventArgs e)
