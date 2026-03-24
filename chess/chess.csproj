@@ -57,6 +57,7 @@
     <Compile Include="Modele\Pion.cs" />
     <Compile Include="Modele\Plateau.cs" />
     <Compile Include="Modele\Position.cs" />
+    <Compile Include="Modele\RaisonCoupInvalide.cs" />
     <Compile Include="Modele\Reine.cs" />
     <Compile Include="Modele\Roi.cs" />
     <Compile Include="Modele\Tour.cs" />

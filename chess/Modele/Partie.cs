@@ -21,21 +21,54 @@ namespace chess
 
         public bool JouerCoup(Coup coup)
         {
-            if (coup == null || !coup.EstValide())
+            return ValiderEtJouerCoup(coup) == RaisonCoupInvalide.Aucune;
+        }
+
+        public RaisonCoupInvalide ValiderEtJouerCoup(Coup coup)
+        {
+            if (coup == null)
             {
-                return false;
+                return RaisonCoupInvalide.CoupNull;
+            }
+
+            if (!coup.EstValide())
+            {
+                return RaisonCoupInvalide.PositionsInvalides;
             }
 
             Piece piece = Plateau.ObtenirPiece(coup.PositionDepart);
+
+            if (piece == null)
+            {
+                return RaisonCoupInvalide.AucunePieceAuDepart;
+            }
+
+            if (piece.Couleur != GetJoueurCourant().Couleur)
+            {
+                return RaisonCoupInvalide.MauvaisJoueur;
+            }
+
             Piece pieceDestination = Plateau.ObtenirPiece(coup.PositionArrivee);
 
-            if (piece == null || pieceDestination != null)
+            if (pieceDestination != null && pieceDestination.Couleur == piece.Couleur)
             {
-                return false;
+                return RaisonCoupInvalide.CaseArriveeOccupeeParAllie;
+            }
+
+            if (!piece.MouvementValide(coup, Plateau))
+            {
+                return RaisonCoupInvalide.MouvementInvalidePourLaPiece;
+            }
+
+            if (Plateau.VerifierCollision(coup))
+            {
+                return RaisonCoupInvalide.CollisionDetectee;
             }
 
             Plateau.DeplacerPiece(coup);
-            return true;
+            GetJoueurCourant().JouerCoup(coup);
+            ChangerTour();
+            return RaisonCoupInvalide.Aucune;
         }
 
         public bool VerifierEchec()

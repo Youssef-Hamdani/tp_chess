@@ -14,6 +14,16 @@ namespace chess
             return PartieCourante != null && PartieCourante.JouerCoup(coup);
         }
 
+        public RaisonCoupInvalide ValiderEtJouerCoup(Coup coup)
+        {
+            if (PartieCourante == null)
+            {
+                return RaisonCoupInvalide.CoupNull;
+            }
+
+            return PartieCourante.ValiderEtJouerCoup(coup);
+        }
+
         public Partie ChargerPartie()
         {
             return PartieCourante;

@@ -37,7 +37,7 @@ namespace chess
             }
 
             formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-            formPartie.MettreAJourEtat("Pret pour un deplacement simple");
+            formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
             formPartie.AfficherMessage("Nouvelle partie initialisee.");
             formPartie.Show();
             formPartie.BringToFront();
@@ -50,18 +50,18 @@ namespace chess
                 return;
             }
 
-            bool succes = modele.JouerCoup(coup);
+            RaisonCoupInvalide resultat = modele.ValiderEtJouerCoup(coup);
 
-            if (succes)
+            if (resultat == RaisonCoupInvalide.Aucune)
             {
                 formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-                formPartie.MettreAJourEtat("Dernier coup accepte");
+                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
                 formPartie.AfficherMessage("Coup joue.");
             }
             else
             {
-                formPartie.MettreAJourEtat("Dernier coup refuse");
-                formPartie.AfficherMessage("Coup invalide.");
+                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
+                formPartie.AfficherMessage(ObtenirMessageErreur(resultat));
             }
         }
 
@@ -86,6 +86,31 @@ namespace chess
         private void FormPartie_CoupSoumis(object sender, CoupEventArgs e)
         {
             JouerCoup(e.Coup);
+        }
+
+        private string ObtenirMessageErreur(RaisonCoupInvalide raison)
+        {
+            switch (raison)
+            {
+                case RaisonCoupInvalide.CoupNull:
+                    return "Aucun coup n'a ete fourni.";
+                case RaisonCoupInvalide.PositionsInvalides:
+                    return "Les positions choisies sont invalides.";
+                case RaisonCoupInvalide.AucunePieceAuDepart:
+                    return "Il n'y a aucune piece sur la case de depart.";
+                case RaisonCoupInvalide.MauvaisJoueur:
+                    return "Cette piece n'appartient pas au joueur courant.";
+                case RaisonCoupInvalide.CaseArriveeOccupeeParAllie:
+                    return "La case d'arrivee contient deja une piece alliee.";
+                case RaisonCoupInvalide.CaseArriveeOccupee:
+                    return "La case d'arrivee est deja occupee.";
+                case RaisonCoupInvalide.MouvementInvalidePourLaPiece:
+                    return "Le mouvement ne correspond pas a cette piece.";
+                case RaisonCoupInvalide.CollisionDetectee:
+                    return "Une piece bloque le trajet.";
+                default:
+                    return "Coup invalide.";
+            }
         }
     }
 }
