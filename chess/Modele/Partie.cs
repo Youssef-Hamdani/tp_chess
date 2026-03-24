@@ -43,6 +43,11 @@ namespace chess
                 return RaisonCoupInvalide.AucunePieceAuDepart;
             }
 
+            if (piece.Couleur != GetJoueurCourant().Couleur)
+            {
+                return RaisonCoupInvalide.MauvaisJoueur;
+            }
+
             Piece pieceDestination = Plateau.ObtenirPiece(coup.PositionArrivee);
 
             if (pieceDestination != null)
@@ -61,6 +66,8 @@ namespace chess
             }
 
             Plateau.DeplacerPiece(coup);
+            GetJoueurCourant().JouerCoup(coup);
+            ChangerTour();
             return RaisonCoupInvalide.Aucune;
         }
 

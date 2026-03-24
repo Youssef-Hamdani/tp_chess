@@ -6,6 +6,7 @@ namespace chess
         CoupNull,
         PositionsInvalides,
         AucunePieceAuDepart,
+        MauvaisJoueur,
         CaseArriveeOccupee,
         MouvementInvalidePourLaPiece,
         CollisionDetectee

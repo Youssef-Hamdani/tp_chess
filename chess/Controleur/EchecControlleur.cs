@@ -37,7 +37,7 @@ namespace chess
             }
 
             formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-            formPartie.MettreAJourEtat("Pret pour un deplacement simple");
+            formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
             formPartie.AfficherMessage("Nouvelle partie initialisee.");
             formPartie.Show();
             formPartie.BringToFront();
@@ -55,12 +55,12 @@ namespace chess
             if (resultat == RaisonCoupInvalide.Aucune)
             {
                 formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-                formPartie.MettreAJourEtat("Dernier coup accepte");
+                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
                 formPartie.AfficherMessage("Coup joue.");
             }
             else
             {
-                formPartie.MettreAJourEtat("Dernier coup refuse");
+                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
                 formPartie.AfficherMessage(ObtenirMessageErreur(resultat));
             }
         }
@@ -98,6 +98,8 @@ namespace chess
                     return "Les positions choisies sont invalides.";
                 case RaisonCoupInvalide.AucunePieceAuDepart:
                     return "Il n'y a aucune piece sur la case de depart.";
+                case RaisonCoupInvalide.MauvaisJoueur:
+                    return "Cette piece n'appartient pas au joueur courant.";
                 case RaisonCoupInvalide.CaseArriveeOccupee:
                     return "La case d'arrivee est deja occupee.";
                 case RaisonCoupInvalide.MouvementInvalidePourLaPiece:
