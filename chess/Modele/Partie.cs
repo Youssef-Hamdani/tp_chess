@@ -21,31 +21,47 @@ namespace chess
 
         public bool JouerCoup(Coup coup)
         {
-            if (coup == null || !coup.EstValide())
+            return ValiderEtJouerCoup(coup) == RaisonCoupInvalide.Aucune;
+        }
+
+        public RaisonCoupInvalide ValiderEtJouerCoup(Coup coup)
+        {
+            if (coup == null)
             {
-                return false;
+                return RaisonCoupInvalide.CoupNull;
+            }
+
+            if (!coup.EstValide())
+            {
+                return RaisonCoupInvalide.PositionsInvalides;
             }
 
             Piece piece = Plateau.ObtenirPiece(coup.PositionDepart);
+
+            if (piece == null)
+            {
+                return RaisonCoupInvalide.AucunePieceAuDepart;
+            }
+
             Piece pieceDestination = Plateau.ObtenirPiece(coup.PositionArrivee);
 
-            if (piece == null || pieceDestination != null)
+            if (pieceDestination != null)
             {
-                return false;
+                return RaisonCoupInvalide.CaseArriveeOccupee;
             }
 
             if (!piece.MouvementValide(coup, Plateau))
             {
-                return false;
+                return RaisonCoupInvalide.MouvementInvalidePourLaPiece;
             }
 
             if (Plateau.VerifierCollision(coup))
             {
-                return false;
+                return RaisonCoupInvalide.CollisionDetectee;
             }
 
             Plateau.DeplacerPiece(coup);
-            return true;
+            return RaisonCoupInvalide.Aucune;
         }
 
         public bool VerifierEchec()

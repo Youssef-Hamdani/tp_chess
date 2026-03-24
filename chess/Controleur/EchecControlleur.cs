@@ -50,9 +50,9 @@ namespace chess
                 return;
             }
 
-            bool succes = modele.JouerCoup(coup);
+            RaisonCoupInvalide resultat = modele.ValiderEtJouerCoup(coup);
 
-            if (succes)
+            if (resultat == RaisonCoupInvalide.Aucune)
             {
                 formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
                 formPartie.MettreAJourEtat("Dernier coup accepte");
@@ -61,7 +61,7 @@ namespace chess
             else
             {
                 formPartie.MettreAJourEtat("Dernier coup refuse");
-                formPartie.AfficherMessage("Coup invalide.");
+                formPartie.AfficherMessage(ObtenirMessageErreur(resultat));
             }
         }
 
@@ -86,6 +86,27 @@ namespace chess
         private void FormPartie_CoupSoumis(object sender, CoupEventArgs e)
         {
             JouerCoup(e.Coup);
+        }
+
+        private string ObtenirMessageErreur(RaisonCoupInvalide raison)
+        {
+            switch (raison)
+            {
+                case RaisonCoupInvalide.CoupNull:
+                    return "Aucun coup n'a ete fourni.";
+                case RaisonCoupInvalide.PositionsInvalides:
+                    return "Les positions choisies sont invalides.";
+                case RaisonCoupInvalide.AucunePieceAuDepart:
+                    return "Il n'y a aucune piece sur la case de depart.";
+                case RaisonCoupInvalide.CaseArriveeOccupee:
+                    return "La case d'arrivee est deja occupee.";
+                case RaisonCoupInvalide.MouvementInvalidePourLaPiece:
+                    return "Le mouvement ne correspond pas a cette piece.";
+                case RaisonCoupInvalide.CollisionDetectee:
+                    return "Une piece bloque le trajet.";
+                default:
+                    return "Coup invalide.";
+            }
         }
     }
 }
