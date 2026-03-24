@@ -33,6 +33,12 @@ namespace chess
         public void DeplacerPiece(Coup coup)
         {
             Piece piece = ObtenirPiece(coup.PositionDepart);
+            Piece pieceDestination = ObtenirPiece(coup.PositionArrivee);
+
+            if (pieceDestination != null)
+            {
+                pieces.Remove(pieceDestination);
+            }
 
             if (piece != null)
             {

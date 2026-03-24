@@ -50,9 +50,9 @@ namespace chess
 
             Piece pieceDestination = Plateau.ObtenirPiece(coup.PositionArrivee);
 
-            if (pieceDestination != null)
+            if (pieceDestination != null && pieceDestination.Couleur == piece.Couleur)
             {
-                return RaisonCoupInvalide.CaseArriveeOccupee;
+                return RaisonCoupInvalide.CaseArriveeOccupeeParAllie;
             }
 
             if (!piece.MouvementValide(coup, Plateau))

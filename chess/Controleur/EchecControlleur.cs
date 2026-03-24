@@ -100,6 +100,8 @@ namespace chess
                     return "Il n'y a aucune piece sur la case de depart.";
                 case RaisonCoupInvalide.MauvaisJoueur:
                     return "Cette piece n'appartient pas au joueur courant.";
+                case RaisonCoupInvalide.CaseArriveeOccupeeParAllie:
+                    return "La case d'arrivee contient deja une piece alliee.";
                 case RaisonCoupInvalide.CaseArriveeOccupee:
                     return "La case d'arrivee est deja occupee.";
                 case RaisonCoupInvalide.MouvementInvalidePourLaPiece:

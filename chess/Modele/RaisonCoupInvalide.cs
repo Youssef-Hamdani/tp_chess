@@ -7,6 +7,7 @@ namespace chess
         PositionsInvalides,
         AucunePieceAuDepart,
         MauvaisJoueur,
+        CaseArriveeOccupeeParAllie,
         CaseArriveeOccupee,
         MouvementInvalidePourLaPiece,
         CollisionDetectee
