@@ -11,7 +11,7 @@ namespace chess
 
         public override string Symbole
         {
-            get { return Couleur == "Blanc" ? "♙" : "♟"; }
+            get { return Couleur == "Blanc" ? "PB" : "PN"; }
         }
 
         public override bool MouvementValide(Coup coup, Plateau plateau)
