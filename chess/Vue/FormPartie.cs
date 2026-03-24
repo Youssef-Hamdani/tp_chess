@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace chess
@@ -11,6 +12,8 @@ namespace chess
         private bool departSelectionne;
         private readonly string[,] codesCases = new string[8, 8];
         private readonly Dictionary<string, Image> imagesPieces = new Dictionary<string, Image>();
+        private readonly Color caseClaire = Color.FromArgb(247, 240, 221);
+        private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
 
         public FormPartie()
         {
@@ -65,7 +68,7 @@ namespace chess
             for (int colonne = 0; colonne < 8; colonne++)
             {
                 DataGridViewImageColumn col = new DataGridViewImageColumn();
-                col.HeaderText = colonne.ToString();
+                col.HeaderText = string.Empty;
                 col.Width = 56;
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
                 col.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -76,9 +79,21 @@ namespace chess
 
             for (int ligne = 0; ligne < 8; ligne++)
             {
-                dgvPlateau.Rows[ligne].HeaderCell.Value = ligne.ToString();
+                dgvPlateau.Rows[ligne].HeaderCell.Value = string.Empty;
                 dgvPlateau.Rows[ligne].Height = 56;
             }
+
+            dgvPlateau.BorderStyle = BorderStyle.None;
+            dgvPlateau.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvPlateau.BackgroundColor = caseClaire;
+            dgvPlateau.ColumnHeadersVisible = false;
+            dgvPlateau.RowHeadersVisible = false;
+            dgvPlateau.ScrollBars = ScrollBars.None;
+            dgvPlateau.DefaultCellStyle.NullValue = null;
+            dgvPlateau.DefaultCellStyle.SelectionBackColor = Color.FromArgb(134, 176, 92);
+            dgvPlateau.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            AppliquerCouleursEchiquier();
         }
 
         private void BtnJouerCoup_Click(object sender, EventArgs e)
@@ -178,35 +193,95 @@ namespace chess
 
         private Image CreerImagePiece(string code)
         {
-            Bitmap image = new Bitmap(48, 48);
+            Bitmap image = new Bitmap(52, 52);
 
             using (Graphics graphics = Graphics.FromImage(image))
             {
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
                 graphics.Clear(Color.Transparent);
 
-                Color fond = code.EndsWith("B") ? Color.FromArgb(244, 235, 218) : Color.FromArgb(77, 77, 77);
-                Color contour = code.EndsWith("B") ? Color.FromArgb(110, 90, 70) : Color.FromArgb(220, 220, 220);
-                Color texte = code.EndsWith("B") ? Color.FromArgb(60, 45, 35) : Color.WhiteSmoke;
-                Rectangle cercle = new Rectangle(4, 4, 40, 40);
+                string glyphe = ObtenirGlyphePiece(code);
+                GraphicsPath chemin = new GraphicsPath();
+                StringFormat alignement = new StringFormat();
+                alignement.Alignment = StringAlignment.Center;
+                alignement.LineAlignment = StringAlignment.Center;
 
-                using (Brush pinceauFond = new SolidBrush(fond))
-                using (Pen pinceauContour = new Pen(contour, 2F))
-                using (Brush pinceauTexte = new SolidBrush(texte))
-                using (Font police = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Pixel))
+                chemin.AddString(
+                    glyphe,
+                    new FontFamily("Segoe UI Symbol"),
+                    (int)FontStyle.Regular,
+                    36F,
+                    new Rectangle(1, 2, 50, 48),
+                    alignement);
+
+                if (code.EndsWith("B"))
                 {
-                    graphics.FillEllipse(pinceauFond, cercle);
-                    graphics.DrawEllipse(pinceauContour, cercle);
-
-                    StringFormat alignement = new StringFormat();
-                    alignement.Alignment = StringAlignment.Center;
-                    alignement.LineAlignment = StringAlignment.Center;
-
-                    graphics.DrawString(code.Substring(0, 1), police, pinceauTexte, cercle, alignement);
+                    using (Pen contour = new Pen(Color.FromArgb(45, 45, 45), 2.2F))
+                    using (Brush remplissage = new SolidBrush(Color.WhiteSmoke))
+                    {
+                        graphics.DrawPath(contour, chemin);
+                        graphics.FillPath(remplissage, chemin);
+                    }
+                }
+                else
+                {
+                    using (Pen contour = new Pen(Color.FromArgb(230, 230, 230), 1.5F))
+                    using (Brush remplissage = new SolidBrush(Color.FromArgb(30, 30, 30)))
+                    {
+                        graphics.DrawPath(contour, chemin);
+                        graphics.FillPath(remplissage, chemin);
+                    }
                 }
             }
 
             return image;
+        }
+
+        private string ObtenirGlyphePiece(string code)
+        {
+            switch (code)
+            {
+                case "PB":
+                    return "\u2659";
+                case "PN":
+                    return "\u265F";
+                case "TB":
+                    return "\u2656";
+                case "TN":
+                    return "\u265C";
+                case "CB":
+                    return "\u2658";
+                case "CN":
+                    return "\u265E";
+                case "FB":
+                    return "\u2657";
+                case "FN":
+                    return "\u265D";
+                case "DB":
+                    return "\u2655";
+                case "DN":
+                    return "\u265B";
+                case "RB":
+                    return "\u2654";
+                case "RN":
+                    return "\u265A";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        private void AppliquerCouleursEchiquier()
+        {
+            for (int ligne = 0; ligne < 8; ligne++)
+            {
+                for (int colonne = 0; colonne < 8; colonne++)
+                {
+                    Color couleur = (ligne + colonne) % 2 == 0 ? caseClaire : caseFoncee;
+                    dgvPlateau[colonne, ligne].Style.BackColor = couleur;
+                    dgvPlateau[colonne, ligne].Style.SelectionBackColor = couleur;
+                }
+            }
         }
     }
 
