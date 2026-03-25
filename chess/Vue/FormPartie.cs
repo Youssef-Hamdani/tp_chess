@@ -129,6 +129,15 @@ namespace chess
             }
 
             string piece = codesCases[e.RowIndex, e.ColumnIndex];
+            Position positionCliquee = new Position(e.RowIndex, e.ColumnIndex);
+
+            if (departSelectionne && EstCoupPossible(positionCliquee))
+            {
+                nudArriveeLigne.Value = e.RowIndex;
+                nudArriveeColonne.Value = e.ColumnIndex;
+                SoumettreCoupDepuisSelection();
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(piece))
             {
@@ -381,6 +390,16 @@ namespace chess
             }
 
             return false;
+        }
+
+        private void SoumettreCoupDepuisSelection()
+        {
+            AfficherMessage("Coup en cours...");
+
+            if (CoupSoumis != null)
+            {
+                CoupSoumis(this, new CoupEventArgs(DemanderCoup()));
+            }
         }
 
         private bool PeutAtteindreCase(Position depart, Position arrivee, string piece)
