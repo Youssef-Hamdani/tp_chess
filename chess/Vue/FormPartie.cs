@@ -11,9 +11,14 @@ namespace chess
         private bool departSelectionne;
         private readonly string[,] codesCases = new string[8, 8];
         private readonly Dictionary<string, Image> imagesPieces = new Dictionary<string, Image>();
+        private readonly Dictionary<string, Image> imagesPiecesCapturables = new Dictionary<string, Image>();
         private readonly Image imageCaseVide = CreerImageVide();
+        private readonly Image imageCoupPossible = CreerImageCoupPossible();
         private readonly Color caseClaire = Color.FromArgb(247, 240, 221);
         private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
+        private readonly Color caseSelectionnee = Color.FromArgb(188, 214, 141);
+        private Position positionSelectionnee;
+        private readonly List<Position> coupsPossibles = new List<Position>();
 
         public FormPartie()
         {
@@ -28,6 +33,7 @@ namespace chess
 
         public void AfficherPlateau(string plateauSerialise)
         {
+            ReinitialiserSelection();
             string[] lignes = plateauSerialise.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             for (int ligne = 0; ligne < 8; ligne++)
@@ -38,9 +44,10 @@ namespace chess
                 {
                     string code = colonnes[colonne] == "__" ? string.Empty : colonnes[colonne];
                     codesCases[ligne, colonne] = code;
-                    dgvPlateau[colonne, ligne].Value = string.IsNullOrWhiteSpace(code) ? imageCaseVide : imagesPieces[code];
                 }
             }
+
+            RafraichirPlateau();
         }
 
         public void AfficherMessage(string message)
@@ -102,8 +109,6 @@ namespace chess
             {
                 CoupSoumis(this, new CoupEventArgs(DemanderCoup()));
             }
-
-            departSelectionne = false;
         }
 
         private void DgvPlateau_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -120,6 +125,7 @@ namespace chess
                 nudArriveeLigne.Value = e.RowIndex;
                 nudArriveeColonne.Value = e.ColumnIndex;
                 AfficherMessage("Arrivee selectionnee en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+                RafraichirPlateau();
                 return;
             }
 
@@ -128,13 +134,17 @@ namespace chess
                 nudArriveeLigne.Value = e.RowIndex;
                 nudArriveeColonne.Value = e.ColumnIndex;
                 AfficherMessage("Arrivee selectionnee : " + NomPiece(piece) + " en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+                RafraichirPlateau();
                 return;
             }
 
             nudDepartLigne.Value = e.RowIndex;
             nudDepartColonne.Value = e.ColumnIndex;
             departSelectionne = true;
+            positionSelectionnee = new Position(e.RowIndex, e.ColumnIndex);
+            MettreAJourCoupsPossibles();
             AfficherMessage("Depart selectionne : " + NomPiece(piece) + " en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+            RafraichirPlateau();
         }
 
         private bool EstPieceAdverse(string pieceCliquee)
@@ -188,6 +198,7 @@ namespace chess
             foreach (string code in codes)
             {
                 imagesPieces[code] = ChargerImagePiece(code);
+                imagesPiecesCapturables[code] = CreerImageCapturable(imagesPieces[code]);
             }
         }
 
@@ -218,6 +229,39 @@ namespace chess
             return image;
         }
 
+        private static Image CreerImageCoupPossible()
+        {
+            Bitmap image = new Bitmap(92, 92);
+
+            using (Graphics graphics = Graphics.FromImage(image))
+            using (SolidBrush ombre = new SolidBrush(Color.FromArgb(45, 0, 0, 0)))
+            using (SolidBrush cercle = new SolidBrush(Color.FromArgb(135, 60, 60, 60)))
+            {
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                graphics.FillEllipse(ombre, 31, 33, 30, 30);
+                graphics.FillEllipse(cercle, 33, 31, 26, 26);
+            }
+
+            return image;
+        }
+
+        private static Image CreerImageCapturable(Image imageSource)
+        {
+            Bitmap image = new Bitmap(imageSource.Width, imageSource.Height);
+
+            using (Graphics graphics = Graphics.FromImage(image))
+            using (SolidBrush halo = new SolidBrush(Color.FromArgb(110, 206, 54, 54)))
+            using (Pen contour = new Pen(Color.FromArgb(175, 166, 22, 22), 4f))
+            {
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                graphics.FillEllipse(halo, 6, 6, image.Width - 12, image.Height - 12);
+                graphics.DrawEllipse(contour, 10, 10, image.Width - 20, image.Height - 20);
+                graphics.DrawImage(imageSource, 0, 0, image.Width, image.Height);
+            }
+
+            return image;
+        }
+
         private void AppliquerCouleursEchiquier()
         {
             for (int ligne = 0; ligne < 8; ligne++)
@@ -229,6 +273,212 @@ namespace chess
                     dgvPlateau[colonne, ligne].Style.SelectionBackColor = couleur;
                 }
             }
+        }
+
+        private void RafraichirPlateau()
+        {
+            AppliquerCouleursEchiquier();
+
+            for (int ligne = 0; ligne < 8; ligne++)
+            {
+                for (int colonne = 0; colonne < 8; colonne++)
+                {
+                    string code = codesCases[ligne, colonne];
+                    DataGridViewCell cellule = dgvPlateau[colonne, ligne];
+                    Position position = new Position(ligne, colonne);
+                    bool estSelectionnee = positionSelectionnee != null && positionSelectionnee.Equals(position);
+                    bool estCoupPossible = EstCoupPossible(position);
+                    bool estCapture = estCoupPossible && !string.IsNullOrWhiteSpace(code);
+                    Color couleurCase = (ligne + colonne) % 2 == 0 ? caseClaire : caseFoncee;
+
+                    if (estSelectionnee)
+                    {
+                        couleurCase = caseSelectionnee;
+                    }
+
+                    cellule.Style.BackColor = couleurCase;
+                    cellule.Style.SelectionBackColor = couleurCase;
+
+                    if (string.IsNullOrWhiteSpace(code))
+                    {
+                        cellule.Value = estCoupPossible ? imageCoupPossible : imageCaseVide;
+                    }
+                    else
+                    {
+                        cellule.Value = estCapture ? imagesPiecesCapturables[code] : imagesPieces[code];
+                    }
+                }
+            }
+        }
+
+        private void ReinitialiserSelection()
+        {
+            departSelectionne = false;
+            positionSelectionnee = null;
+            coupsPossibles.Clear();
+        }
+
+        private void MettreAJourCoupsPossibles()
+        {
+            coupsPossibles.Clear();
+
+            if (positionSelectionnee == null)
+            {
+                return;
+            }
+
+            string piece = codesCases[positionSelectionnee.Ligne, positionSelectionnee.Colonne];
+
+            if (string.IsNullOrWhiteSpace(piece))
+            {
+                return;
+            }
+
+            for (int ligne = 0; ligne < 8; ligne++)
+            {
+                for (int colonne = 0; colonne < 8; colonne++)
+                {
+                    Position arrivee = new Position(ligne, colonne);
+
+                    if (positionSelectionnee.Equals(arrivee))
+                    {
+                        continue;
+                    }
+
+                    if (PeutAtteindreCase(positionSelectionnee, arrivee, piece))
+                    {
+                        coupsPossibles.Add(arrivee);
+                    }
+                }
+            }
+        }
+
+        private bool EstCoupPossible(Position position)
+        {
+            foreach (Position coupPossible in coupsPossibles)
+            {
+                if (coupPossible.Equals(position))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool PeutAtteindreCase(Position depart, Position arrivee, string piece)
+        {
+            string pieceDestination = codesCases[arrivee.Ligne, arrivee.Colonne];
+
+            if (!string.IsNullOrWhiteSpace(pieceDestination) && ObtenirCouleur(pieceDestination) == ObtenirCouleur(piece))
+            {
+                return false;
+            }
+
+            switch (piece[0])
+            {
+                case 'P':
+                    return MouvementPionValide(depart, arrivee, piece, pieceDestination);
+                case 'T':
+                    return MouvementTourValide(depart, arrivee) && !TrajetBloque(depart, arrivee);
+                case 'C':
+                    return MouvementCavalierValide(depart, arrivee);
+                case 'F':
+                    return MouvementFouValide(depart, arrivee) && !TrajetBloque(depart, arrivee);
+                case 'D':
+                    return MouvementReineValide(depart, arrivee) && !TrajetBloque(depart, arrivee);
+                case 'R':
+                    return MouvementRoiValide(depart, arrivee);
+                default:
+                    return false;
+            }
+        }
+
+        private bool MouvementPionValide(Position depart, Position arrivee, string piece, string pieceDestination)
+        {
+            int direction = piece.EndsWith("B") ? -1 : 1;
+            int ligneDepartInitiale = piece.EndsWith("B") ? 6 : 1;
+            int deltaLigne = arrivee.Ligne - depart.Ligne;
+            int deltaColonne = Math.Abs(arrivee.Colonne - depart.Colonne);
+
+            if (deltaColonne == 0)
+            {
+                if (!string.IsNullOrWhiteSpace(pieceDestination))
+                {
+                    return false;
+                }
+
+                if (deltaLigne == direction)
+                {
+                    return true;
+                }
+
+                if (depart.Ligne == ligneDepartInitiale && deltaLigne == 2 * direction)
+                {
+                    return !TrajetBloque(depart, arrivee);
+                }
+
+                return false;
+            }
+
+            return deltaColonne == 1
+                && deltaLigne == direction
+                && !string.IsNullOrWhiteSpace(pieceDestination)
+                && ObtenirCouleur(pieceDestination) != ObtenirCouleur(piece);
+        }
+
+        private static bool MouvementTourValide(Position depart, Position arrivee)
+        {
+            int deltaLigne = Math.Abs(arrivee.Ligne - depart.Ligne);
+            int deltaColonne = Math.Abs(arrivee.Colonne - depart.Colonne);
+            return (deltaLigne == 0 && deltaColonne > 0) || (deltaColonne == 0 && deltaLigne > 0);
+        }
+
+        private static bool MouvementCavalierValide(Position depart, Position arrivee)
+        {
+            int deltaLigne = Math.Abs(arrivee.Ligne - depart.Ligne);
+            int deltaColonne = Math.Abs(arrivee.Colonne - depart.Colonne);
+            return (deltaLigne == 2 && deltaColonne == 1) || (deltaLigne == 1 && deltaColonne == 2);
+        }
+
+        private static bool MouvementFouValide(Position depart, Position arrivee)
+        {
+            int deltaLigne = Math.Abs(arrivee.Ligne - depart.Ligne);
+            int deltaColonne = Math.Abs(arrivee.Colonne - depart.Colonne);
+            return deltaLigne == deltaColonne && deltaLigne > 0;
+        }
+
+        private static bool MouvementReineValide(Position depart, Position arrivee)
+        {
+            return MouvementTourValide(depart, arrivee) || MouvementFouValide(depart, arrivee);
+        }
+
+        private static bool MouvementRoiValide(Position depart, Position arrivee)
+        {
+            int deltaLigne = Math.Abs(arrivee.Ligne - depart.Ligne);
+            int deltaColonne = Math.Abs(arrivee.Colonne - depart.Colonne);
+            return deltaLigne <= 1 && deltaColonne <= 1 && (deltaLigne + deltaColonne > 0);
+        }
+
+        private bool TrajetBloque(Position depart, Position arrivee)
+        {
+            int pasLigne = Math.Sign(arrivee.Ligne - depart.Ligne);
+            int pasColonne = Math.Sign(arrivee.Colonne - depart.Colonne);
+            int ligneCourante = depart.Ligne + pasLigne;
+            int colonneCourante = depart.Colonne + pasColonne;
+
+            while (ligneCourante != arrivee.Ligne || colonneCourante != arrivee.Colonne)
+            {
+                if (!string.IsNullOrWhiteSpace(codesCases[ligneCourante, colonneCourante]))
+                {
+                    return true;
+                }
+
+                ligneCourante += pasLigne;
+                colonneCourante += pasColonne;
+            }
+
+            return false;
         }
     }
 
