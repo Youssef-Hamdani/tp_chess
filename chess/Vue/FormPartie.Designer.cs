@@ -56,12 +56,12 @@ namespace chess
             this.dgvPlateau.ReadOnly = true;
             this.dgvPlateau.RowHeadersWidth = 60;
             this.dgvPlateau.RowTemplate.Height = 25;
-            this.dgvPlateau.Size = new System.Drawing.Size(470, 354);
+            this.dgvPlateau.Size = new System.Drawing.Size(356, 356);
             this.dgvPlateau.TabIndex = 0;
             // 
             // nudDepartLigne
             // 
-            this.nudDepartLigne.Location = new System.Drawing.Point(517, 82);
+            this.nudDepartLigne.Location = new System.Drawing.Point(402, 82);
             this.nudDepartLigne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -73,7 +73,7 @@ namespace chess
             // 
             // nudDepartColonne
             // 
-            this.nudDepartColonne.Location = new System.Drawing.Point(598, 82);
+            this.nudDepartColonne.Location = new System.Drawing.Point(483, 82);
             this.nudDepartColonne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -85,7 +85,7 @@ namespace chess
             // 
             // nudArriveeLigne
             // 
-            this.nudArriveeLigne.Location = new System.Drawing.Point(517, 146);
+            this.nudArriveeLigne.Location = new System.Drawing.Point(402, 146);
             this.nudArriveeLigne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -97,7 +97,7 @@ namespace chess
             // 
             // nudArriveeColonne
             // 
-            this.nudArriveeColonne.Location = new System.Drawing.Point(598, 146);
+            this.nudArriveeColonne.Location = new System.Drawing.Point(483, 146);
             this.nudArriveeColonne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -109,7 +109,7 @@ namespace chess
             // 
             // btnJouerCoup
             // 
-            this.btnJouerCoup.Location = new System.Drawing.Point(517, 196);
+            this.btnJouerCoup.Location = new System.Drawing.Point(402, 196);
             this.btnJouerCoup.Name = "btnJouerCoup";
             this.btnJouerCoup.Size = new System.Drawing.Size(145, 35);
             this.btnJouerCoup.TabIndex = 5;
@@ -119,7 +119,7 @@ namespace chess
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(514, 258);
+            this.lblMessage.Location = new System.Drawing.Point(399, 258);
             this.lblMessage.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(103, 13);
@@ -129,7 +129,7 @@ namespace chess
             // lblTour
             // 
             this.lblTour.AutoSize = true;
-            this.lblTour.Location = new System.Drawing.Point(514, 24);
+            this.lblTour.Location = new System.Drawing.Point(399, 24);
             this.lblTour.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblTour.Name = "lblTour";
             this.lblTour.Size = new System.Drawing.Size(68, 13);
@@ -139,7 +139,7 @@ namespace chess
             // lblDepart
             // 
             this.lblDepart.AutoSize = true;
-            this.lblDepart.Location = new System.Drawing.Point(517, 61);
+            this.lblDepart.Location = new System.Drawing.Point(402, 61);
             this.lblDepart.Name = "lblDepart";
             this.lblDepart.Size = new System.Drawing.Size(114, 13);
             this.lblDepart.TabIndex = 8;
@@ -148,7 +148,7 @@ namespace chess
             // lblArrivee
             // 
             this.lblArrivee.AutoSize = true;
-            this.lblArrivee.Location = new System.Drawing.Point(517, 125);
+            this.lblArrivee.Location = new System.Drawing.Point(402, 125);
             this.lblArrivee.Name = "lblArrivee";
             this.lblArrivee.Size = new System.Drawing.Size(115, 13);
             this.lblArrivee.TabIndex = 9;
@@ -158,7 +158,7 @@ namespace chess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 381);
+            this.ClientSize = new System.Drawing.Size(602, 381);
             this.Controls.Add(this.lblArrivee);
             this.Controls.Add(this.lblDepart);
             this.Controls.Add(this.lblTour);

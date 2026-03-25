@@ -12,6 +12,7 @@ namespace chess
         private bool departSelectionne;
         private readonly string[,] codesCases = new string[8, 8];
         private readonly Dictionary<string, Image> imagesPieces = new Dictionary<string, Image>();
+        private readonly Image imageCaseVide = CreerImageVide();
         private readonly Color caseClaire = Color.FromArgb(247, 240, 221);
         private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
 
@@ -38,7 +39,7 @@ namespace chess
                 {
                     string code = colonnes[colonne] == "__" ? string.Empty : colonnes[colonne];
                     codesCases[ligne, colonne] = code;
-                    dgvPlateau[colonne, ligne].Value = string.IsNullOrWhiteSpace(code) ? null : imagesPieces[code];
+                    dgvPlateau[colonne, ligne].Value = string.IsNullOrWhiteSpace(code) ? imageCaseVide : imagesPieces[code];
                 }
             }
         }
@@ -69,7 +70,7 @@ namespace chess
             {
                 DataGridViewImageColumn col = new DataGridViewImageColumn();
                 col.HeaderText = string.Empty;
-                col.Width = 56;
+                col.Width = 44;
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
                 col.ImageLayout = DataGridViewImageCellLayout.Zoom;
                 dgvPlateau.Columns.Add(col);
@@ -80,7 +81,7 @@ namespace chess
             for (int ligne = 0; ligne < 8; ligne++)
             {
                 dgvPlateau.Rows[ligne].HeaderCell.Value = string.Empty;
-                dgvPlateau.Rows[ligne].Height = 56;
+                dgvPlateau.Rows[ligne].Height = 44;
             }
 
             dgvPlateau.BorderStyle = BorderStyle.None;
@@ -193,7 +194,7 @@ namespace chess
 
         private Image CreerImagePiece(string code)
         {
-            Bitmap image = new Bitmap(52, 52);
+            Bitmap image = new Bitmap(40, 40);
 
             using (Graphics graphics = Graphics.FromImage(image))
             {
@@ -211,8 +212,8 @@ namespace chess
                     glyphe,
                     new FontFamily("Segoe UI Symbol"),
                     (int)FontStyle.Regular,
-                    36F,
-                    new Rectangle(1, 2, 50, 48),
+                    30F,
+                    new Rectangle(0, 0, 40, 40),
                     alignement);
 
                 if (code.EndsWith("B"))
@@ -220,21 +221,28 @@ namespace chess
                     using (Pen contour = new Pen(Color.FromArgb(45, 45, 45), 2.2F))
                     using (Brush remplissage = new SolidBrush(Color.WhiteSmoke))
                     {
-                        graphics.DrawPath(contour, chemin);
                         graphics.FillPath(remplissage, chemin);
+                        graphics.DrawPath(contour, chemin);
                     }
                 }
                 else
                 {
-                    using (Pen contour = new Pen(Color.FromArgb(230, 230, 230), 1.5F))
-                    using (Brush remplissage = new SolidBrush(Color.FromArgb(30, 30, 30)))
+                    using (Pen contour = new Pen(Color.FromArgb(20, 20, 20), 1.5F))
+                    using (Brush remplissage = new SolidBrush(Color.FromArgb(35, 35, 35)))
                     {
-                        graphics.DrawPath(contour, chemin);
                         graphics.FillPath(remplissage, chemin);
+                        graphics.DrawPath(contour, chemin);
                     }
                 }
             }
 
+            return image;
+        }
+
+        private static Image CreerImageVide()
+        {
+            Bitmap image = new Bitmap(2, 2);
+            image.MakeTransparent();
             return image;
         }
 
