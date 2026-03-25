@@ -17,6 +17,7 @@ namespace chess
         private readonly Color caseClaire = Color.FromArgb(247, 240, 221);
         private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
         private readonly Color caseSelectionnee = Color.FromArgb(188, 214, 141);
+        private string couleurJoueurCourant = "Blanc";
         private Position positionSelectionnee;
         private readonly List<Position> coupsPossibles = new List<Position>();
 
@@ -26,7 +27,7 @@ namespace chess
             InitialiserImagesPieces();
             InitialiserGrille();
             btnJouerCoup.Click += BtnJouerCoup_Click;
-            dgvPlateau.CellClick += DgvPlateau_CellClick;
+            dgvPlateau.CellMouseClick += DgvPlateau_CellMouseClick;
         }
 
         public event EventHandler<CoupEventArgs> CoupSoumis;
@@ -65,6 +66,7 @@ namespace chess
         public void MettreAJourEtat(string etat)
         {
             lblTour.Text = "Etat : " + etat;
+            couleurJoueurCourant = etat.IndexOf("Noir", StringComparison.OrdinalIgnoreCase) >= 0 ? "Noir" : "Blanc";
         }
 
         private void InitialiserGrille()
@@ -111,10 +113,18 @@ namespace chess
             }
         }
 
-        private void DgvPlateau_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvPlateau_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
+                return;
+            }
+
+            if (e.Button == MouseButtons.Right)
+            {
+                ReinitialiserSelection();
+                RafraichirPlateau();
+                AfficherMessage("Selection effacee.");
                 return;
             }
 
@@ -134,6 +144,13 @@ namespace chess
                 nudArriveeLigne.Value = e.RowIndex;
                 nudArriveeColonne.Value = e.ColumnIndex;
                 AfficherMessage("Arrivee selectionnee : " + NomPiece(piece) + " en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+                RafraichirPlateau();
+                return;
+            }
+
+            if (ObtenirCouleur(piece) != couleurJoueurCourant)
+            {
+                AfficherMessage("Cette piece n'appartient pas au joueur courant.");
                 RafraichirPlateau();
                 return;
             }
