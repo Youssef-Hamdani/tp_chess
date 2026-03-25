@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace chess
@@ -189,97 +187,35 @@ namespace chess
 
             foreach (string code in codes)
             {
-                imagesPieces[code] = CreerImagePiece(code);
+                imagesPieces[code] = ChargerImagePiece(code);
             }
         }
 
-        private Image CreerImagePiece(string code)
+        private Image ChargerImagePiece(string code)
         {
-            Bitmap image = new Bitmap(96, 96, PixelFormat.Format32bppArgb);
+            string chemin = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Assets",
+                "Pieces",
+                "png",
+                code + ".png");
 
-            using (Graphics graphics = Graphics.FromImage(image))
+            if (!File.Exists(chemin))
             {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-                graphics.Clear(Color.Transparent);
-
-                string glyphe = ObtenirGlyphePiece(code);
-                GraphicsPath chemin = new GraphicsPath();
-                StringFormat alignement = new StringFormat();
-                alignement.Alignment = StringAlignment.Center;
-                alignement.LineAlignment = StringAlignment.Center;
-
-                chemin.AddString(
-                    glyphe,
-                    new FontFamily("Segoe UI Symbol"),
-                    (int)FontStyle.Regular,
-                    70F,
-                    new Rectangle(6, 8, 84, 80),
-                    alignement);
-
-                if (code.EndsWith("B"))
-                {
-                    using (Pen contour = new Pen(Color.FromArgb(70, 70, 70), 2.2F))
-                    using (Brush remplissage = new SolidBrush(Color.FromArgb(252, 252, 248)))
-                    {
-                        graphics.FillPath(remplissage, chemin);
-                        graphics.DrawPath(contour, chemin);
-                    }
-                }
-                else
-                {
-                    using (Pen contour = new Pen(Color.FromArgb(15, 15, 15), 1.8F))
-                    using (Brush remplissage = new SolidBrush(Color.FromArgb(35, 35, 35)))
-                    {
-                        graphics.FillPath(remplissage, chemin);
-                        graphics.DrawPath(contour, chemin);
-                    }
-                }
+                return imageCaseVide;
             }
 
-            return image;
+            using (Image source = Image.FromFile(chemin))
+            {
+                return new Bitmap(source);
+            }
         }
 
         private static Image CreerImageVide()
         {
-            Bitmap image = new Bitmap(2, 2);
+            Bitmap image = new Bitmap(8, 8);
             image.MakeTransparent();
             return image;
-        }
-
-        private string ObtenirGlyphePiece(string code)
-        {
-            switch (code)
-            {
-                case "PB":
-                    return "\u2659";
-                case "PN":
-                    return "\u265F";
-                case "TB":
-                    return "\u2656";
-                case "TN":
-                    return "\u265C";
-                case "CB":
-                    return "\u2658";
-                case "CN":
-                    return "\u265E";
-                case "FB":
-                    return "\u2657";
-                case "FN":
-                    return "\u265D";
-                case "DB":
-                    return "\u2655";
-                case "DN":
-                    return "\u265B";
-                case "RB":
-                    return "\u2654";
-                case "RN":
-                    return "\u265A";
-                default:
-                    return string.Empty;
-            }
         }
 
         private void AppliquerCouleursEchiquier()
