@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
@@ -194,11 +195,13 @@ namespace chess
 
         private Image CreerImagePiece(string code)
         {
-            Bitmap image = new Bitmap(40, 40);
+            Bitmap image = new Bitmap(96, 96, PixelFormat.Format32bppArgb);
 
             using (Graphics graphics = Graphics.FromImage(image))
             {
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
                 graphics.Clear(Color.Transparent);
 
@@ -212,14 +215,14 @@ namespace chess
                     glyphe,
                     new FontFamily("Segoe UI Symbol"),
                     (int)FontStyle.Regular,
-                    30F,
-                    new Rectangle(0, 0, 40, 40),
+                    70F,
+                    new Rectangle(6, 8, 84, 80),
                     alignement);
 
                 if (code.EndsWith("B"))
                 {
-                    using (Pen contour = new Pen(Color.FromArgb(45, 45, 45), 2.2F))
-                    using (Brush remplissage = new SolidBrush(Color.WhiteSmoke))
+                    using (Pen contour = new Pen(Color.FromArgb(70, 70, 70), 2.2F))
+                    using (Brush remplissage = new SolidBrush(Color.FromArgb(252, 252, 248)))
                     {
                         graphics.FillPath(remplissage, chemin);
                         graphics.DrawPath(contour, chemin);
@@ -227,7 +230,7 @@ namespace chess
                 }
                 else
                 {
-                    using (Pen contour = new Pen(Color.FromArgb(20, 20, 20), 1.5F))
+                    using (Pen contour = new Pen(Color.FromArgb(15, 15, 15), 1.8F))
                     using (Brush remplissage = new SolidBrush(Color.FromArgb(35, 35, 35)))
                     {
                         graphics.FillPath(remplissage, chemin);
