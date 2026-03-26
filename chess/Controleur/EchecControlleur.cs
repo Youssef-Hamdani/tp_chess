@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace chess
@@ -33,12 +34,14 @@ namespace chess
             {
                 formPartie = new FormPartie();
                 formPartie.CoupSoumis += FormPartie_CoupSoumis;
+                formPartie.CoupsPossiblesDemandes = ObtenirCoupsPossiblesDepuisModele;
                 formPartie.FormClosed += (_, __) => formPartie = null;
             }
 
             formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-            formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
+            formPartie.MettreAJourEtat(ConstruireEtatPartie());
             formPartie.AfficherMessage("Nouvelle partie initialisee.");
+            formPartie.DefinirInteractionActive(true);
             formPartie.Show();
             formPartie.BringToFront();
         }
@@ -54,13 +57,15 @@ namespace chess
 
             if (resultat == RaisonCoupInvalide.Aucune)
             {
-                formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
-                formPartie.AfficherMessage("Coup joue.");
+                Partie partie = modele.GetPartieCourante();
+                formPartie.AfficherPlateau(partie.Plateau.SerialiserPourVue());
+                formPartie.MettreAJourEtat(ConstruireEtatPartie());
+                formPartie.AfficherMessage(partie.MessageDernierEvenement);
+                formPartie.DefinirInteractionActive(!partie.PartieEstTerminee);
             }
             else
             {
-                formPartie.MettreAJourEtat("Joueur courant : " + modele.GetPartieCourante().GetJoueurCourant());
+                formPartie.MettreAJourEtat(ConstruireEtatPartie());
                 formPartie.AfficherMessage(ObtenirMessageErreur(resultat));
             }
         }
@@ -88,6 +93,42 @@ namespace chess
             JouerCoup(e.Coup);
         }
 
+        private IList<Position> ObtenirCoupsPossiblesDepuisModele(Position position)
+        {
+            Partie partie = modele.GetPartieCourante();
+
+            if (partie == null)
+            {
+                return new List<Position>();
+            }
+
+            return partie.ObtenirCoupsLegaux(position);
+        }
+
+        private string ConstruireEtatPartie()
+        {
+            Partie partie = modele.GetPartieCourante();
+
+            if (partie == null)
+            {
+                return "Aucune partie.";
+            }
+
+            if (partie.PartieEstTerminee)
+            {
+                return "Partie terminee.";
+            }
+
+            string etat = "Joueur courant : " + partie.GetJoueurCourant();
+
+            if (partie.EstEnEchec(partie.GetJoueurCourant().Couleur))
+            {
+                etat += " - en echec";
+            }
+
+            return etat;
+        }
+
         private string ObtenirMessageErreur(RaisonCoupInvalide raison)
         {
             switch (raison)
@@ -108,6 +149,10 @@ namespace chess
                     return "Le mouvement ne correspond pas a cette piece.";
                 case RaisonCoupInvalide.CollisionDetectee:
                     return "Une piece bloque le trajet.";
+                case RaisonCoupInvalide.RoiEnEchecApresCoup:
+                    return "Ce coup laisserait votre roi en echec.";
+                case RaisonCoupInvalide.PartieTerminee:
+                    return "La partie est deja terminee.";
                 default:
                     return "Coup invalide.";
             }

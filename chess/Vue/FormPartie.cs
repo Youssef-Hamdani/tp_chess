@@ -32,6 +32,8 @@ namespace chess
 
         public event EventHandler<CoupEventArgs> CoupSoumis;
 
+        public Func<Position, IList<Position>> CoupsPossiblesDemandes { get; set; }
+
         public void AfficherPlateau(string plateauSerialise)
         {
             ReinitialiserSelection();
@@ -67,6 +69,12 @@ namespace chess
         {
             lblTour.Text = "Etat : " + etat;
             couleurJoueurCourant = etat.IndexOf("Noir", StringComparison.OrdinalIgnoreCase) >= 0 ? "Noir" : "Blanc";
+        }
+
+        public void DefinirInteractionActive(bool active)
+        {
+            dgvPlateau.Enabled = active;
+            btnJouerCoup.Enabled = active;
         }
 
         private void InitialiserGrille()
@@ -357,6 +365,16 @@ namespace chess
 
             if (string.IsNullOrWhiteSpace(piece))
             {
+                return;
+            }
+
+            if (CoupsPossiblesDemandes != null)
+            {
+                foreach (Position coup in CoupsPossiblesDemandes(new Position(positionSelectionnee)))
+                {
+                    coupsPossibles.Add(coup);
+                }
+
                 return;
             }
 
