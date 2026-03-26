@@ -1,5 +1,8 @@
 namespace chess
 {
+    /// <summary>
+    /// Represente une coordonnee ligne-colonne sur le plateau.
+    /// </summary>
     public class Position
     {
         public Position()

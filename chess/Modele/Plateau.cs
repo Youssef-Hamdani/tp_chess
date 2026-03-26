@@ -5,6 +5,9 @@ using System.Text;
 
 namespace chess
 {
+    /// <summary>
+    /// Represente le plateau d'echecs et les pieces qui l'occupent.
+    /// </summary>
     public class Plateau
     {
         private readonly List<Piece> pieces = new List<Piece>();

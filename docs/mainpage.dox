@@ -1,0 +1,41 @@
+/** \mainpage TP Echecs MVC
+ *
+ * \section presentation Presentation
+ * Ce projet implemente un jeu d'echecs a deux joueurs en WinForms avec une architecture MVC.
+ * Le code couvre les deplacements standards, les coups speciaux, la sauvegarde et le chargement,
+ * ainsi que les actions de partie utiles pour le TP.
+ *
+ * \section mvc Architecture MVC
+ * - Vue : [Menu](/C:/projects/chess/chess/Vue/Menu.cs) et [FormPartie](/C:/projects/chess/chess/Vue/FormPartie.cs)
+ * - Controleur : [EchecControlleur](/C:/projects/chess/chess/Controleur/EchecControlleur.cs)
+ * - Modele : classes dans [Modele](/C:/projects/chess/chess/Modele)
+ *
+ * \section grasp Principes GRASP retenus
+ * - Expert : la classe Partie centralise les regles d'echecs et la validation des coups.
+ * - Controleur : EchecControlleur traite les intentions de l'usager.
+ * - Polymorphisme : chaque sous-classe de Piece implemente son propre mouvement.
+ * - Faible couplage : la vue manipule surtout des evenements et des donnees de presentation.
+ * - Forte cohesion : Plateau gere l'occupation des cases, Partie gere le deroulement du match.
+ *
+ * \section backlog Fonctionnalites couvertes
+ * - Demarrer une nouvelle partie entre deux joueurs
+ * - Afficher le plateau et les pieces
+ * - Jouer un coup valide ou invalide avec message
+ * - Charge du pion
+ * - Prise en passant
+ * - Petit roque et grand roque
+ * - Promotion automatique en reine
+ * - Echec, echec et mat, pat
+ * - Abandon
+ * - Demande de nulle
+ * - Nulle par boucle
+ * - Consulter la liste des joueurs
+ * - Voir et ajuster le pointage des joueurs
+ * - Sauvegarder et charger une partie
+ * - Quitter le programme
+ *
+ * \section generation Generation
+ * Pour generer la documentation :
+ * - installer Doxygen
+ * - executer `doxygen Doxyfile` a la racine du depot
+ */

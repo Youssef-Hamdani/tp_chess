@@ -1,5 +1,8 @@
 namespace chess
 {
+    /// <summary>
+    /// Classe abstraite de base pour toutes les pieces d'echecs.
+    /// </summary>
     public abstract class Piece
     {
         protected Piece(string couleur, Position position, bool aDejaBouge = false)

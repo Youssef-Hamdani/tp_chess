@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace chess
 {
+    /// <summary>
+    /// Fenetre principale d'une partie en cours.
+    /// </summary>
     public partial class FormPartie : Form
     {
         private bool departSelectionne;
