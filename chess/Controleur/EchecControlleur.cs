@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace chess
 {
+    /// <summary>
+    /// Controleur principal de l'application qui fait le lien entre le modele et les vues.
+    /// </summary>
     public class EchecControlleur
     {
         private readonly Modele modele;
@@ -15,10 +18,11 @@ namespace chess
             modele = new Modele();
             menu = new Menu();
 
-            menu.NouvellePartieDemandee += (_, __) => DemarrerPartie(
-                new Joueur("Joueur Blanc", 1, "Blanc"),
-                new Joueur("Joueur Noir", 2, "Noir"));
+            menu.NouvellePartieDemandee += Menu_NouvellePartieDemandee;
             menu.ChargerPartieDemandee += (_, __) => ChargerPartie();
+            menu.AjustementPointageDemande += Menu_AjustementPointageDemande;
+            menu.QuitterDemandee += (_, __) => Application.Exit();
+            RafraichirMenuJoueurs();
         }
 
         public Menu MenuPrincipal
@@ -44,16 +48,8 @@ namespace chess
             if (resultat == RaisonCoupInvalide.Aucune)
             {
                 Partie partie = modele.GetPartieCourante();
+                TraiterFinDePartieSiNecessaire(partie);
                 AfficherPartieCourante(partie.MessageDernierEvenement);
-
-                if (partie.PartieEstTerminee && partie.MessageDernierEvenement.IndexOf("Echec et mat", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    MessageBox.Show(
-                        partie.MessageDernierEvenement,
-                        "Echec et mat",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
             }
             else
             {
@@ -83,6 +79,7 @@ namespace chess
                     return;
                 }
 
+                RafraichirMenuJoueurs();
                 AfficherPartieCourante("Partie chargee.");
             }
         }
@@ -108,6 +105,18 @@ namespace chess
             }
         }
 
+        private void Menu_NouvellePartieDemandee(object sender, NouvellePartieDemandeeEventArgs e)
+        {
+            modele.DemarrerPartie(e.JoueurBlanc, e.JoueurNoir);
+            AfficherPartieCourante("Nouvelle partie initialisee.");
+        }
+
+        private void Menu_AjustementPointageDemande(object sender, AjustementPointageEventArgs e)
+        {
+            modele.AjusterPointage(e.NomJoueur, e.Delta);
+            RafraichirMenuJoueurs();
+        }
+
         private void FormPartie_CoupSoumis(object sender, CoupEventArgs e)
         {
             JouerCoup(e.Coup);
@@ -116,6 +125,52 @@ namespace chess
         private void FormPartie_SauvegardeDemandee(object sender, EventArgs e)
         {
             SauvegarderPartie();
+        }
+
+        private void FormPartie_AbandonDemande(object sender, EventArgs e)
+        {
+            Partie partie = modele.GetPartieCourante();
+
+            if (partie == null || partie.PartieEstTerminee)
+            {
+                return;
+            }
+
+            partie.AbandonnerPartie();
+            TraiterFinDePartieSiNecessaire(partie);
+            AfficherPartieCourante(partie.MessageDernierEvenement);
+            MessageBox.Show(partie.MessageDernierEvenement, "Abandon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void FormPartie_NulleDemandee(object sender, EventArgs e)
+        {
+            Partie partie = modele.GetPartieCourante();
+
+            if (partie == null || partie.PartieEstTerminee)
+            {
+                return;
+            }
+
+            DialogResult resultat = MessageBox.Show(
+                "Le joueur adverse accepte-t-il la nulle ?",
+                "Demande de nulle",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (!partie.DemanderNulle(resultat == DialogResult.Yes))
+            {
+                formPartie.AfficherMessage("La nulle a ete refusee.");
+                return;
+            }
+
+            TraiterFinDePartieSiNecessaire(partie);
+            AfficherPartieCourante(partie.MessageDernierEvenement);
+            MessageBox.Show(partie.MessageDernierEvenement, "Partie nulle", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void FormPartie_QuitterDemande(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void AfficherPartieCourante(string message)
@@ -145,8 +200,36 @@ namespace chess
             formPartie = new FormPartie();
             formPartie.CoupSoumis += FormPartie_CoupSoumis;
             formPartie.SauvegardeDemandee += FormPartie_SauvegardeDemandee;
+            formPartie.AbandonDemande += FormPartie_AbandonDemande;
+            formPartie.NulleDemandee += FormPartie_NulleDemandee;
+            formPartie.QuitterDemande += FormPartie_QuitterDemande;
             formPartie.CoupsPossiblesDemandes = ObtenirCoupsPossiblesDepuisModele;
             formPartie.FormClosed += (_, __) => formPartie = null;
+        }
+
+        private void RafraichirMenuJoueurs()
+        {
+            menu.AfficherJoueurs(modele.Joueurs);
+        }
+
+        private void TraiterFinDePartieSiNecessaire(Partie partie)
+        {
+            if (partie == null || !partie.PartieEstTerminee)
+            {
+                return;
+            }
+
+            modele.AppliquerPointagePartieCourante();
+            RafraichirMenuJoueurs();
+
+            if (partie.MessageDernierEvenement.IndexOf("Echec et mat", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                MessageBox.Show(
+                    partie.MessageDernierEvenement,
+                    "Echec et mat",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
         private static OpenFileDialog CreerDialogueChargement()

@@ -15,6 +15,9 @@ namespace chess
         private System.Windows.Forms.Label lblArrivee;
         private System.Windows.Forms.Button btnSauvegarderPartie;
         private System.Windows.Forms.CheckBox chkRetournerSelonTour;
+        private System.Windows.Forms.Button btnAbandonner;
+        private System.Windows.Forms.Button btnDemanderNulle;
+        private System.Windows.Forms.Button btnQuitter;
 
         protected override void Dispose(bool disposing)
         {
@@ -40,6 +43,9 @@ namespace chess
             this.lblArrivee = new System.Windows.Forms.Label();
             this.btnSauvegarderPartie = new System.Windows.Forms.Button();
             this.chkRetournerSelonTour = new System.Windows.Forms.CheckBox();
+            this.btnAbandonner = new System.Windows.Forms.Button();
+            this.btnDemanderNulle = new System.Windows.Forms.Button();
+            this.btnQuitter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlateau)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartLigne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartColonne)).BeginInit();
@@ -113,7 +119,7 @@ namespace chess
             // 
             // btnJouerCoup
             // 
-            this.btnJouerCoup.Location = new System.Drawing.Point(402, 196);
+            this.btnJouerCoup.Location = new System.Drawing.Point(402, 190);
             this.btnJouerCoup.Name = "btnJouerCoup";
             this.btnJouerCoup.Size = new System.Drawing.Size(145, 35);
             this.btnJouerCoup.TabIndex = 5;
@@ -123,7 +129,7 @@ namespace chess
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(399, 258);
+            this.lblMessage.Location = new System.Drawing.Point(402, 362);
             this.lblMessage.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(103, 13);
@@ -136,7 +142,7 @@ namespace chess
             this.lblTour.Location = new System.Drawing.Point(399, 24);
             this.lblTour.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblTour.Name = "lblTour";
-            this.lblTour.Size = new System.Drawing.Size(68, 13);
+            this.lblTour.Size = new System.Drawing.Size(26, 13);
             this.lblTour.TabIndex = 7;
             this.lblTour.Text = "Etat";
             // 
@@ -160,11 +166,11 @@ namespace chess
             // 
             // btnSauvegarderPartie
             // 
-            this.btnSauvegarderPartie.Location = new System.Drawing.Point(402, 237);
+            this.btnSauvegarderPartie.Location = new System.Drawing.Point(402, 325);
             this.btnSauvegarderPartie.Name = "btnSauvegarderPartie";
             this.btnSauvegarderPartie.Size = new System.Drawing.Size(145, 30);
             this.btnSauvegarderPartie.TabIndex = 10;
-            this.btnSauvegarderPartie.Text = "Sauvegarder";
+            this.btnSauvegarderPartie.Text = "Sauvegarder la partie";
             this.btnSauvegarderPartie.UseVisualStyleBackColor = true;
             // 
             // chkRetournerSelonTour
@@ -172,18 +178,48 @@ namespace chess
             this.chkRetournerSelonTour.AutoSize = true;
             this.chkRetournerSelonTour.Checked = true;
             this.chkRetournerSelonTour.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRetournerSelonTour.Location = new System.Drawing.Point(402, 283);
+            this.chkRetournerSelonTour.Location = new System.Drawing.Point(402, 231);
             this.chkRetournerSelonTour.Name = "chkRetournerSelonTour";
-            this.chkRetournerSelonTour.Size = new System.Drawing.Size(134, 17);
+            this.chkRetournerSelonTour.Size = new System.Drawing.Size(133, 17);
             this.chkRetournerSelonTour.TabIndex = 11;
             this.chkRetournerSelonTour.Text = "Retourner selon le tour";
             this.chkRetournerSelonTour.UseVisualStyleBackColor = true;
+            // 
+            // btnAbandonner
+            // 
+            this.btnAbandonner.Location = new System.Drawing.Point(402, 254);
+            this.btnAbandonner.Name = "btnAbandonner";
+            this.btnAbandonner.Size = new System.Drawing.Size(145, 28);
+            this.btnAbandonner.TabIndex = 12;
+            this.btnAbandonner.Text = "Abandonner";
+            this.btnAbandonner.UseVisualStyleBackColor = true;
+            // 
+            // btnDemanderNulle
+            // 
+            this.btnDemanderNulle.Location = new System.Drawing.Point(402, 288);
+            this.btnDemanderNulle.Name = "btnDemanderNulle";
+            this.btnDemanderNulle.Size = new System.Drawing.Size(145, 28);
+            this.btnDemanderNulle.TabIndex = 13;
+            this.btnDemanderNulle.Text = "Demander nulle";
+            this.btnDemanderNulle.UseVisualStyleBackColor = true;
+            // 
+            // btnQuitter
+            // 
+            this.btnQuitter.Location = new System.Drawing.Point(402, 385);
+            this.btnQuitter.Name = "btnQuitter";
+            this.btnQuitter.Size = new System.Drawing.Size(145, 28);
+            this.btnQuitter.TabIndex = 14;
+            this.btnQuitter.Text = "Quitter";
+            this.btnQuitter.UseVisualStyleBackColor = true;
             // 
             // FormPartie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 381);
+            this.ClientSize = new System.Drawing.Size(602, 423);
+            this.Controls.Add(this.btnQuitter);
+            this.Controls.Add(this.btnDemanderNulle);
+            this.Controls.Add(this.btnAbandonner);
             this.Controls.Add(this.chkRetournerSelonTour);
             this.Controls.Add(this.btnSauvegarderPartie);
             this.Controls.Add(this.lblArrivee);

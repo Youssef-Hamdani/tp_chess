@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace chess
 {
+    /// <summary>
+    /// Contient l'etat complet d'une partie d'echecs et applique les regles du jeu.
+    /// </summary>
     public class Partie
     {
         private bool dernierCoupEtaitPion;
+        private readonly Dictionary<string, int> historiquePositions = new Dictionary<string, int>();
 
         public Partie(Joueur joueurBlanc, Joueur joueurNoir)
         {
@@ -14,7 +20,9 @@ namespace chess
             Plateau = new Plateau();
             Plateau.Initialiser();
             Tour = 0;
+            Resultat = ResultatPartie.EnCours;
             MessageDernierEvenement = "Partie initialisee.";
+            EnregistrerPositionCourante();
         }
 
         public Partie(
@@ -26,7 +34,9 @@ namespace chess
             bool dernierCoupEtaitPion,
             bool dernierCoupEtaitDoublePasPion,
             bool partieEstTerminee,
-            string messageDernierEvenement)
+            string messageDernierEvenement,
+            ResultatPartie resultat,
+            bool pointageAttribue)
         {
             JoueurBlanc = joueurBlanc;
             JoueurNoir = joueurNoir;
@@ -36,9 +46,12 @@ namespace chess
             this.dernierCoupEtaitPion = dernierCoupEtaitPion;
             DernierCoupEtaitDoublePasPion = dernierCoupEtaitDoublePasPion;
             PartieEstTerminee = partieEstTerminee;
+            Resultat = resultat;
+            PointageAttribue = pointageAttribue;
             MessageDernierEvenement = string.IsNullOrWhiteSpace(messageDernierEvenement)
                 ? "Partie chargee."
                 : messageDernierEvenement;
+            EnregistrerPositionCourante();
         }
 
         public int Tour { get; private set; }
@@ -54,6 +67,10 @@ namespace chess
         public bool DernierCoupEtaitDoublePasPion { get; private set; }
 
         public bool PartieEstTerminee { get; private set; }
+
+        public ResultatPartie Resultat { get; private set; }
+
+        public bool PointageAttribue { get; private set; }
 
         public string MessageDernierEvenement { get; private set; }
 
@@ -137,6 +154,38 @@ namespace chess
         public void ChangerTour()
         {
             Tour = Tour == 0 ? 1 : 0;
+        }
+
+        public void AbandonnerPartie()
+        {
+            if (PartieEstTerminee)
+            {
+                return;
+            }
+
+            PartieEstTerminee = true;
+            Resultat = GetJoueurCourant().Couleur == "Blanc"
+                ? ResultatPartie.VictoireNoir
+                : ResultatPartie.VictoireBlanc;
+            MessageDernierEvenement = GetJoueurCourant().Nom + " abandonne la partie.";
+        }
+
+        public bool DemanderNulle(bool acceptee)
+        {
+            if (!acceptee || PartieEstTerminee)
+            {
+                return false;
+            }
+
+            PartieEstTerminee = true;
+            Resultat = ResultatPartie.Nulle;
+            MessageDernierEvenement = "Nulle acceptee par les joueurs.";
+            return true;
+        }
+
+        public void MarquerPointageAttribue()
+        {
+            PointageAttribue = true;
         }
 
         public Joueur GetJoueurCourant()
@@ -254,12 +303,16 @@ namespace chess
 
             GetJoueurCourant().JouerCoup(coup);
             ChangerTour();
+            EnregistrerPositionCourante();
 
             if (EstEnEchec(GetJoueurCourant().Couleur))
             {
                 if (!JoueurCourantPossedeCoupLegal())
                 {
                     PartieEstTerminee = true;
+                    Resultat = GetJoueurCourant().Couleur == "Blanc"
+                        ? ResultatPartie.VictoireNoir
+                        : ResultatPartie.VictoireBlanc;
                     evenements.Add("Echec et mat. " + GetJoueurAdverse().Nom + " gagne.");
                 }
                 else
@@ -270,7 +323,14 @@ namespace chess
             else if (!JoueurCourantPossedeCoupLegal())
             {
                 PartieEstTerminee = true;
+                Resultat = ResultatPartie.Nulle;
                 evenements.Add("Pat. Partie nulle.");
+            }
+            else if (VerifierNulleParBoucle())
+            {
+                PartieEstTerminee = true;
+                Resultat = ResultatPartie.Nulle;
+                evenements.Add("Nulle par boucle.");
             }
 
             if (!promotion && evenements.Count == 0)
@@ -455,6 +515,57 @@ namespace chess
         private static string ObtenirCouleurAdverse(string couleur)
         {
             return couleur == "Blanc" ? "Noir" : "Blanc";
+        }
+
+        private void EnregistrerPositionCourante()
+        {
+            string signature = ObtenirSignaturePosition();
+
+            if (!historiquePositions.ContainsKey(signature))
+            {
+                historiquePositions[signature] = 0;
+            }
+
+            historiquePositions[signature]++;
+        }
+
+        private bool VerifierNulleParBoucle()
+        {
+            string signature = ObtenirSignaturePosition();
+            return historiquePositions.ContainsKey(signature) && historiquePositions[signature] >= 3;
+        }
+
+        private string ObtenirSignaturePosition()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Tour);
+            builder.Append('|');
+            builder.Append(DernierCoupEtaitDoublePasPion);
+            builder.Append('|');
+
+            if (DernierCoup != null)
+            {
+                builder.Append(DernierCoup.PositionArrivee.Ligne);
+                builder.Append(',');
+                builder.Append(DernierCoup.PositionArrivee.Colonne);
+            }
+
+            foreach (Piece piece in Plateau.Pieces
+                .OrderBy(piece => piece.Symbole)
+                .ThenBy(piece => piece.Position.Ligne)
+                .ThenBy(piece => piece.Position.Colonne))
+            {
+                builder.Append('|');
+                builder.Append(piece.Symbole);
+                builder.Append('@');
+                builder.Append(piece.Position.Ligne);
+                builder.Append(',');
+                builder.Append(piece.Position.Colonne);
+                builder.Append(',');
+                builder.Append(piece.ADejaBouge ? '1' : '0');
+            }
+
+            return builder.ToString();
         }
     }
 }

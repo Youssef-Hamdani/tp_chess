@@ -29,12 +29,18 @@ namespace chess
             InitialiserGrille();
             btnJouerCoup.Click += BtnJouerCoup_Click;
             btnSauvegarderPartie.Click += BtnSauvegarderPartie_Click;
+            btnAbandonner.Click += BtnAbandonner_Click;
+            btnDemanderNulle.Click += BtnDemanderNulle_Click;
+            btnQuitter.Click += BtnQuitter_Click;
             chkRetournerSelonTour.CheckedChanged += ChkRetournerSelonTour_CheckedChanged;
             dgvPlateau.CellMouseClick += DgvPlateau_CellMouseClick;
         }
 
         public event EventHandler<CoupEventArgs> CoupSoumis;
         public event EventHandler SauvegardeDemandee;
+        public event EventHandler AbandonDemande;
+        public event EventHandler NulleDemandee;
+        public event EventHandler QuitterDemande;
 
         public Func<Position, IList<Position>> CoupsPossiblesDemandes { get; set; }
 
@@ -81,6 +87,8 @@ namespace chess
         {
             dgvPlateau.Enabled = active;
             btnJouerCoup.Enabled = active;
+            btnAbandonner.Enabled = active;
+            btnDemanderNulle.Enabled = active;
         }
 
         private void InitialiserGrille()
@@ -132,6 +140,30 @@ namespace chess
             if (SauvegardeDemandee != null)
             {
                 SauvegardeDemandee(this, EventArgs.Empty);
+            }
+        }
+
+        private void BtnAbandonner_Click(object sender, EventArgs e)
+        {
+            if (AbandonDemande != null)
+            {
+                AbandonDemande(this, EventArgs.Empty);
+            }
+        }
+
+        private void BtnDemanderNulle_Click(object sender, EventArgs e)
+        {
+            if (NulleDemandee != null)
+            {
+                NulleDemandee(this, EventArgs.Empty);
+            }
+        }
+
+        private void BtnQuitter_Click(object sender, EventArgs e)
+        {
+            if (QuitterDemande != null)
+            {
+                QuitterDemande(this, EventArgs.Empty);
             }
         }
 
