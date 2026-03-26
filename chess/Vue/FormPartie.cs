@@ -18,6 +18,7 @@ namespace chess
         private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
         private readonly Color caseSelectionnee = Color.FromArgb(188, 214, 141);
         private string couleurJoueurCourant = "Blanc";
+        private bool plateauInverse;
         private Position positionSelectionnee;
         private readonly List<Position> coupsPossibles = new List<Position>();
 
@@ -27,10 +28,13 @@ namespace chess
             InitialiserImagesPieces();
             InitialiserGrille();
             btnJouerCoup.Click += BtnJouerCoup_Click;
+            btnSauvegarderPartie.Click += BtnSauvegarderPartie_Click;
+            chkRetournerSelonTour.CheckedChanged += ChkRetournerSelonTour_CheckedChanged;
             dgvPlateau.CellMouseClick += DgvPlateau_CellMouseClick;
         }
 
         public event EventHandler<CoupEventArgs> CoupSoumis;
+        public event EventHandler SauvegardeDemandee;
 
         public Func<Position, IList<Position>> CoupsPossiblesDemandes { get; set; }
 
@@ -69,6 +73,8 @@ namespace chess
         {
             lblTour.Text = "Etat : " + etat;
             couleurJoueurCourant = etat.IndexOf("Noir", StringComparison.OrdinalIgnoreCase) >= 0 ? "Noir" : "Blanc";
+            AppliquerOrientationSelonTour();
+            RafraichirPlateau();
         }
 
         public void DefinirInteractionActive(bool active)
@@ -121,6 +127,20 @@ namespace chess
             }
         }
 
+        private void BtnSauvegarderPartie_Click(object sender, EventArgs e)
+        {
+            if (SauvegardeDemandee != null)
+            {
+                SauvegardeDemandee(this, EventArgs.Empty);
+            }
+        }
+
+        private void ChkRetournerSelonTour_CheckedChanged(object sender, EventArgs e)
+        {
+            AppliquerOrientationSelonTour();
+            RafraichirPlateau();
+        }
+
         private void DgvPlateau_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -136,31 +156,31 @@ namespace chess
                 return;
             }
 
-            string piece = codesCases[e.RowIndex, e.ColumnIndex];
-            Position positionCliquee = new Position(e.RowIndex, e.ColumnIndex);
+            Position positionCliquee = ConvertirVersPositionPlateau(e.RowIndex, e.ColumnIndex);
+            string piece = codesCases[positionCliquee.Ligne, positionCliquee.Colonne];
 
             if (departSelectionne && EstCoupPossible(positionCliquee))
             {
-                nudArriveeLigne.Value = e.RowIndex;
-                nudArriveeColonne.Value = e.ColumnIndex;
+                nudArriveeLigne.Value = positionCliquee.Ligne;
+                nudArriveeColonne.Value = positionCliquee.Colonne;
                 SoumettreCoupDepuisSelection();
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(piece))
             {
-                nudArriveeLigne.Value = e.RowIndex;
-                nudArriveeColonne.Value = e.ColumnIndex;
-                AfficherMessage("Arrivee selectionnee en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+                nudArriveeLigne.Value = positionCliquee.Ligne;
+                nudArriveeColonne.Value = positionCliquee.Colonne;
+                AfficherMessage("Arrivee selectionnee en (" + positionCliquee.Ligne + ", " + positionCliquee.Colonne + ").");
                 RafraichirPlateau();
                 return;
             }
 
             if (departSelectionne && EstPieceAdverse(piece))
             {
-                nudArriveeLigne.Value = e.RowIndex;
-                nudArriveeColonne.Value = e.ColumnIndex;
-                AfficherMessage("Arrivee selectionnee : " + NomPiece(piece) + " en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+                nudArriveeLigne.Value = positionCliquee.Ligne;
+                nudArriveeColonne.Value = positionCliquee.Colonne;
+                AfficherMessage("Arrivee selectionnee : " + NomPiece(piece) + " en (" + positionCliquee.Ligne + ", " + positionCliquee.Colonne + ").");
                 RafraichirPlateau();
                 return;
             }
@@ -172,12 +192,12 @@ namespace chess
                 return;
             }
 
-            nudDepartLigne.Value = e.RowIndex;
-            nudDepartColonne.Value = e.ColumnIndex;
+            nudDepartLigne.Value = positionCliquee.Ligne;
+            nudDepartColonne.Value = positionCliquee.Colonne;
             departSelectionne = true;
-            positionSelectionnee = new Position(e.RowIndex, e.ColumnIndex);
+            positionSelectionnee = new Position(positionCliquee);
             MettreAJourCoupsPossibles();
-            AfficherMessage("Depart selectionne : " + NomPiece(piece) + " en (" + e.RowIndex + ", " + e.ColumnIndex + ").");
+            AfficherMessage("Depart selectionne : " + NomPiece(piece) + " en (" + positionCliquee.Ligne + ", " + positionCliquee.Colonne + ").");
             RafraichirPlateau();
         }
 
@@ -313,17 +333,17 @@ namespace chess
         {
             AppliquerCouleursEchiquier();
 
-            for (int ligne = 0; ligne < 8; ligne++)
+            for (int ligneAffichage = 0; ligneAffichage < 8; ligneAffichage++)
             {
-                for (int colonne = 0; colonne < 8; colonne++)
+                for (int colonneAffichage = 0; colonneAffichage < 8; colonneAffichage++)
                 {
-                    string code = codesCases[ligne, colonne];
-                    DataGridViewCell cellule = dgvPlateau[colonne, ligne];
-                    Position position = new Position(ligne, colonne);
+                    Position position = ConvertirVersPositionPlateau(ligneAffichage, colonneAffichage);
+                    string code = codesCases[position.Ligne, position.Colonne];
+                    DataGridViewCell cellule = dgvPlateau[colonneAffichage, ligneAffichage];
                     bool estSelectionnee = positionSelectionnee != null && positionSelectionnee.Equals(position);
                     bool estCoupPossible = EstCoupPossible(position);
                     bool estCapture = estCoupPossible && !string.IsNullOrWhiteSpace(code);
-                    Color couleurCase = (ligne + colonne) % 2 == 0 ? caseClaire : caseFoncee;
+                    Color couleurCase = (position.Ligne + position.Colonne) % 2 == 0 ? caseClaire : caseFoncee;
 
                     if (estSelectionnee)
                     {
@@ -418,6 +438,22 @@ namespace chess
             {
                 CoupSoumis(this, new CoupEventArgs(DemanderCoup()));
             }
+        }
+
+        private void AppliquerOrientationSelonTour()
+        {
+            plateauInverse = chkRetournerSelonTour.Checked
+                && string.Equals(couleurJoueurCourant, "Noir", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private Position ConvertirVersPositionPlateau(int ligneAffichage, int colonneAffichage)
+        {
+            if (!plateauInverse)
+            {
+                return new Position(ligneAffichage, colonneAffichage);
+            }
+
+            return new Position(7 - ligneAffichage, 7 - colonneAffichage);
         }
 
         private bool PeutAtteindreCase(Position depart, Position arrivee, string piece)

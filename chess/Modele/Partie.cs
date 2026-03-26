@@ -17,6 +17,30 @@ namespace chess
             MessageDernierEvenement = "Partie initialisee.";
         }
 
+        public Partie(
+            Joueur joueurBlanc,
+            Joueur joueurNoir,
+            Plateau plateau,
+            int tour,
+            Coup dernierCoup,
+            bool dernierCoupEtaitPion,
+            bool dernierCoupEtaitDoublePasPion,
+            bool partieEstTerminee,
+            string messageDernierEvenement)
+        {
+            JoueurBlanc = joueurBlanc;
+            JoueurNoir = joueurNoir;
+            Plateau = plateau ?? new Plateau();
+            Tour = tour;
+            DernierCoup = dernierCoup;
+            this.dernierCoupEtaitPion = dernierCoupEtaitPion;
+            DernierCoupEtaitDoublePasPion = dernierCoupEtaitDoublePasPion;
+            PartieEstTerminee = partieEstTerminee;
+            MessageDernierEvenement = string.IsNullOrWhiteSpace(messageDernierEvenement)
+                ? "Partie chargee."
+                : messageDernierEvenement;
+        }
+
         public int Tour { get; private set; }
 
         public Joueur JoueurBlanc { get; private set; }

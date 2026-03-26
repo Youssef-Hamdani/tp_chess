@@ -29,21 +29,7 @@ namespace chess
         public void DemarrerPartie(Joueur j1, Joueur j2)
         {
             modele.DemarrerPartie(j1, j2);
-
-            if (formPartie == null || formPartie.IsDisposed)
-            {
-                formPartie = new FormPartie();
-                formPartie.CoupSoumis += FormPartie_CoupSoumis;
-                formPartie.CoupsPossiblesDemandes = ObtenirCoupsPossiblesDepuisModele;
-                formPartie.FormClosed += (_, __) => formPartie = null;
-            }
-
-            formPartie.AfficherPlateau(modele.GetPartieCourante().Plateau.SerialiserPourVue());
-            formPartie.MettreAJourEtat(ConstruireEtatPartie());
-            formPartie.AfficherMessage("Nouvelle partie initialisee.");
-            formPartie.DefinirInteractionActive(true);
-            formPartie.Show();
-            formPartie.BringToFront();
+            AfficherPartieCourante("Nouvelle partie initialisee.");
         }
 
         public void JouerCoup(Coup coup)
@@ -58,10 +44,16 @@ namespace chess
             if (resultat == RaisonCoupInvalide.Aucune)
             {
                 Partie partie = modele.GetPartieCourante();
-                formPartie.AfficherPlateau(partie.Plateau.SerialiserPourVue());
-                formPartie.MettreAJourEtat(ConstruireEtatPartie());
-                formPartie.AfficherMessage(partie.MessageDernierEvenement);
-                formPartie.DefinirInteractionActive(!partie.PartieEstTerminee);
+                AfficherPartieCourante(partie.MessageDernierEvenement);
+
+                if (partie.PartieEstTerminee && partie.MessageDernierEvenement.IndexOf("Echec et mat", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    MessageBox.Show(
+                        partie.MessageDernierEvenement,
+                        "Echec et mat",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
             }
             else
             {
@@ -72,25 +64,110 @@ namespace chess
 
         public void ChargerPartie()
         {
-            MessageBox.Show(
-                "Le chargement sera implemente au Sprint 2.",
-                "Sprint 1",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            using (OpenFileDialog dialogue = CreerDialogueChargement())
+            {
+                if (dialogue.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                Partie partie = modele.ChargerPartie(dialogue.FileName);
+
+                if (partie == null)
+                {
+                    MessageBox.Show(
+                        "Impossible de charger cette sauvegarde.",
+                        "Chargement",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                AfficherPartieCourante("Partie chargee.");
+            }
         }
 
         public void SauvegarderPartie()
         {
-            MessageBox.Show(
-                "La sauvegarde sera implementee au Sprint 2.",
-                "Sprint 1",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            if (modele.GetPartieCourante() == null)
+            {
+                return;
+            }
+
+            using (SaveFileDialog dialogue = CreerDialogueSauvegarde())
+            {
+                if (dialogue.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                if (modele.SauvegarderPartie(dialogue.FileName))
+                {
+                    formPartie.AfficherMessage("Partie sauvegardee.");
+                }
+            }
         }
 
         private void FormPartie_CoupSoumis(object sender, CoupEventArgs e)
         {
             JouerCoup(e.Coup);
+        }
+
+        private void FormPartie_SauvegardeDemandee(object sender, EventArgs e)
+        {
+            SauvegarderPartie();
+        }
+
+        private void AfficherPartieCourante(string message)
+        {
+            if (modele.GetPartieCourante() == null)
+            {
+                return;
+            }
+
+            AssurerFormPartie();
+            Partie partie = modele.GetPartieCourante();
+            formPartie.AfficherPlateau(partie.Plateau.SerialiserPourVue());
+            formPartie.MettreAJourEtat(ConstruireEtatPartie());
+            formPartie.AfficherMessage(message);
+            formPartie.DefinirInteractionActive(!partie.PartieEstTerminee);
+            formPartie.Show();
+            formPartie.BringToFront();
+        }
+
+        private void AssurerFormPartie()
+        {
+            if (formPartie != null && !formPartie.IsDisposed)
+            {
+                return;
+            }
+
+            formPartie = new FormPartie();
+            formPartie.CoupSoumis += FormPartie_CoupSoumis;
+            formPartie.SauvegardeDemandee += FormPartie_SauvegardeDemandee;
+            formPartie.CoupsPossiblesDemandes = ObtenirCoupsPossiblesDepuisModele;
+            formPartie.FormClosed += (_, __) => formPartie = null;
+        }
+
+        private static OpenFileDialog CreerDialogueChargement()
+        {
+            return new OpenFileDialog
+            {
+                Filter = "Sauvegarde echecs (*.echecs)|*.echecs|Tous les fichiers (*.*)|*.*",
+                Title = "Charger une partie"
+            };
+        }
+
+        private static SaveFileDialog CreerDialogueSauvegarde()
+        {
+            return new SaveFileDialog
+            {
+                Filter = "Sauvegarde echecs (*.echecs)|*.echecs|Tous les fichiers (*.*)|*.*",
+                Title = "Sauvegarder la partie",
+                DefaultExt = "echecs",
+                AddExtension = true,
+                FileName = "partie.echecs"
+            };
         }
 
         private IList<Position> ObtenirCoupsPossiblesDepuisModele(Position position)

@@ -47,6 +47,14 @@ namespace chess
                 piece.Position.Ligne == pos.Ligne && piece.Position.Colonne == pos.Colonne);
         }
 
+        public void AjouterPiece(Piece piece)
+        {
+            if (piece != null)
+            {
+                pieces.Add(piece);
+            }
+        }
+
         public IEnumerable<Piece> ObtenirPieces(string couleur)
         {
             return pieces.Where(piece => piece.Couleur == couleur);

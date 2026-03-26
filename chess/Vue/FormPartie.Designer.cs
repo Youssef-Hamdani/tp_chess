@@ -13,6 +13,8 @@ namespace chess
         private System.Windows.Forms.Label lblTour;
         private System.Windows.Forms.Label lblDepart;
         private System.Windows.Forms.Label lblArrivee;
+        private System.Windows.Forms.Button btnSauvegarderPartie;
+        private System.Windows.Forms.CheckBox chkRetournerSelonTour;
 
         protected override void Dispose(bool disposing)
         {
@@ -36,6 +38,8 @@ namespace chess
             this.lblTour = new System.Windows.Forms.Label();
             this.lblDepart = new System.Windows.Forms.Label();
             this.lblArrivee = new System.Windows.Forms.Label();
+            this.btnSauvegarderPartie = new System.Windows.Forms.Button();
+            this.chkRetournerSelonTour = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlateau)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartLigne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartColonne)).BeginInit();
@@ -154,11 +158,34 @@ namespace chess
             this.lblArrivee.TabIndex = 9;
             this.lblArrivee.Text = "Arrivee (ligne, colonne)";
             // 
+            // btnSauvegarderPartie
+            // 
+            this.btnSauvegarderPartie.Location = new System.Drawing.Point(402, 237);
+            this.btnSauvegarderPartie.Name = "btnSauvegarderPartie";
+            this.btnSauvegarderPartie.Size = new System.Drawing.Size(145, 30);
+            this.btnSauvegarderPartie.TabIndex = 10;
+            this.btnSauvegarderPartie.Text = "Sauvegarder";
+            this.btnSauvegarderPartie.UseVisualStyleBackColor = true;
+            // 
+            // chkRetournerSelonTour
+            // 
+            this.chkRetournerSelonTour.AutoSize = true;
+            this.chkRetournerSelonTour.Checked = true;
+            this.chkRetournerSelonTour.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRetournerSelonTour.Location = new System.Drawing.Point(402, 283);
+            this.chkRetournerSelonTour.Name = "chkRetournerSelonTour";
+            this.chkRetournerSelonTour.Size = new System.Drawing.Size(134, 17);
+            this.chkRetournerSelonTour.TabIndex = 11;
+            this.chkRetournerSelonTour.Text = "Retourner selon le tour";
+            this.chkRetournerSelonTour.UseVisualStyleBackColor = true;
+            // 
             // FormPartie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 381);
+            this.Controls.Add(this.chkRetournerSelonTour);
+            this.Controls.Add(this.btnSauvegarderPartie);
             this.Controls.Add(this.lblArrivee);
             this.Controls.Add(this.lblDepart);
             this.Controls.Add(this.lblTour);
