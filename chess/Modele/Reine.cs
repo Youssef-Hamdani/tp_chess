@@ -4,8 +4,8 @@ namespace chess
 {
     public class Reine : Piece
     {
-        public Reine(string couleur, Position position)
-            : base(couleur, position)
+        public Reine(string couleur, Position position, bool aDejaBouge = false)
+            : base(couleur, position, aDejaBouge)
         {
         }
 
@@ -22,6 +22,11 @@ namespace chess
             return (deltaLigne == deltaColonne && deltaLigne > 0)
                 || (deltaLigne == 0 && deltaColonne > 0)
                 || (deltaColonne == 0 && deltaLigne > 0);
+        }
+
+        public override Piece Copier()
+        {
+            return new Reine(Couleur, new Position(Position), ADejaBouge);
         }
     }
 }

@@ -1,5 +1,8 @@
 namespace chess
 {
+    /// <summary>
+    /// Represente un mouvement entre deux positions du plateau.
+    /// </summary>
     public class Coup
     {
         public Coup()

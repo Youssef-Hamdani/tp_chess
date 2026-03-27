@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pieces</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      background: transparent;
+      font-family: sans-serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 96px);
+      gap: 16px;
+    }
+
+    .piece {
+      width: 96px;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    .piece img {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="piece"><img id="PB" src="pawn-w.svg" alt="PB"></div>
+    <div class="piece"><img id="PN" src="pawn-b.svg" alt="PN"></div>
+    <div class="piece"><img id="CB" src="knight-w.svg" alt="CB"></div>
+    <div class="piece"><img id="CN" src="knight-b.svg" alt="CN"></div>
+    <div class="piece"><img id="FB" src="bishop-w.svg" alt="FB"></div>
+    <div class="piece"><img id="FN" src="bishop-b.svg" alt="FN"></div>
+    <div class="piece"><img id="TB" src="rook-w.svg" alt="TB"></div>
+    <div class="piece"><img id="TN" src="rook-b.svg" alt="TN"></div>
+    <div class="piece"><img id="DB" src="queen-w.svg" alt="DB"></div>
+    <div class="piece"><img id="DN" src="queen-b.svg" alt="DN"></div>
+    <div class="piece"><img id="RB" src="king-w.svg" alt="RB"></div>
+    <div class="piece"><img id="RN" src="king-b.svg" alt="RN"></div>
+  </div>
+</body>
+</html>

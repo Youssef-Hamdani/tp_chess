@@ -10,6 +10,8 @@ namespace chess
         CaseArriveeOccupeeParAllie,
         CaseArriveeOccupee,
         MouvementInvalidePourLaPiece,
-        CollisionDetectee
+        CollisionDetectee,
+        RoiEnEchecApresCoup,
+        PartieTerminee
     }
 }

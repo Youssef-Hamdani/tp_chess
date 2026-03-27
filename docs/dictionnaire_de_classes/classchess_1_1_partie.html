@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TP Echecs MVC: Référence de la classe chess.Partie</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">TP Echecs MVC
+   </div>
+   <div id="projectbrief">Application WinForms d&#39;echecs en architecture MVC</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classchess_1_1_partie.html','','classchess_1_1_partie-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Référence de la classe chess.Partie</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Contient l'etat complet d'une partie d'echecs et applique les regles du jeu.  
+ <a href="#details">Plus de détails...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:a9b351ff8ae93320811eead87486d23c2" id="r_a9b351ff8ae93320811eead87486d23c2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9b351ff8ae93320811eead87486d23c2">Partie</a> (<a class="el" href="classchess_1_1_joueur.html">Joueur</a> joueurBlanc, <a class="el" href="classchess_1_1_joueur.html">Joueur</a> joueurNoir)</td></tr>
+<tr class="memitem:a35991fff5dc9adf7896738cd3c471e72" id="r_a35991fff5dc9adf7896738cd3c471e72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a35991fff5dc9adf7896738cd3c471e72">Partie</a> (<a class="el" href="classchess_1_1_joueur.html">Joueur</a> joueurBlanc, <a class="el" href="classchess_1_1_joueur.html">Joueur</a> joueurNoir, <a class="el" href="#a59d85f7b8a2a4dbf289aefb92d0a41ff">Plateau</a> plateau, int tour, <a class="el" href="classchess_1_1_coup.html">Coup</a> dernierCoup, bool dernierCoupEtaitPion, bool dernierCoupEtaitDoublePasPion, bool partieEstTerminee, string messageDernierEvenement, <a class="el" href="namespacechess.html#a06824974738c453f9bb45f3507dc38ac">ResultatPartie</a> resultat, bool pointageAttribue)</td></tr>
+<tr class="memitem:add9ed5bb965125ed6ab088f3e9489dc9" id="r_add9ed5bb965125ed6ab088f3e9489dc9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#add9ed5bb965125ed6ab088f3e9489dc9">JouerCoup</a> (<a class="el" href="classchess_1_1_coup.html">Coup</a> coup)</td></tr>
+<tr class="memitem:aa399614554dab04d78ebd7ffb894d463" id="r_aa399614554dab04d78ebd7ffb894d463"><td class="memItemLeft"><a class="el" href="namespacechess.html#a216a0d5624054cd9600a9a2abc9193fe">RaisonCoupInvalide</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa399614554dab04d78ebd7ffb894d463">ValiderEtJouerCoup</a> (<a class="el" href="classchess_1_1_coup.html">Coup</a> coup)</td></tr>
+<tr class="memitem:aadd205a81c9d93b8d78b9211b8d05af0" id="r_aadd205a81c9d93b8d78b9211b8d05af0"><td class="memItemLeft">IList&lt; <a class="el" href="classchess_1_1_position.html">Position</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aadd205a81c9d93b8d78b9211b8d05af0">ObtenirCoupsLegaux</a> (<a class="el" href="classchess_1_1_position.html">Position</a> depart)</td></tr>
+<tr class="memitem:a2d36ea9bed8e439b147a65f8b0f796bf" id="r_a2d36ea9bed8e439b147a65f8b0f796bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2d36ea9bed8e439b147a65f8b0f796bf">VerifierEchec</a> ()</td></tr>
+<tr class="memitem:a6bb9e5c3303f5f43c3547fbf9a0c0d3d" id="r_a6bb9e5c3303f5f43c3547fbf9a0c0d3d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6bb9e5c3303f5f43c3547fbf9a0c0d3d">EstEnEchec</a> (string couleur)</td></tr>
+<tr class="memitem:ac69e89a5c085014d92ec92912bcb91b1" id="r_ac69e89a5c085014d92ec92912bcb91b1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac69e89a5c085014d92ec92912bcb91b1">EstEchecEtMat</a> (string couleur)</td></tr>
+<tr class="memitem:a272342a544946b0064977cb31ad51fdb" id="r_a272342a544946b0064977cb31ad51fdb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a272342a544946b0064977cb31ad51fdb">EstPat</a> (string couleur)</td></tr>
+<tr class="memitem:a752ccb24edc4c516012edbaff575a4a7" id="r_a752ccb24edc4c516012edbaff575a4a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a752ccb24edc4c516012edbaff575a4a7">ChangerTour</a> ()</td></tr>
+<tr class="memitem:a4705cad8ba3d761d87e99eb2846f7484" id="r_a4705cad8ba3d761d87e99eb2846f7484"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4705cad8ba3d761d87e99eb2846f7484">AbandonnerPartie</a> ()</td></tr>
+<tr class="memitem:a6dcc213862c4df88cbd71352a46d390a" id="r_a6dcc213862c4df88cbd71352a46d390a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6dcc213862c4df88cbd71352a46d390a">DemanderNulle</a> (bool acceptee)</td></tr>
+<tr class="memitem:a86be04671e5a716ccc7dcfc97829170e" id="r_a86be04671e5a716ccc7dcfc97829170e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a86be04671e5a716ccc7dcfc97829170e">MarquerPointageAttribue</a> ()</td></tr>
+<tr class="memitem:adc0e9fa0dfac0072bd92a5ea1f63ae3f" id="r_adc0e9fa0dfac0072bd92a5ea1f63ae3f"><td class="memItemLeft"><a class="el" href="classchess_1_1_joueur.html">Joueur</a>&#160;</td><td class="memItemRight"><a class="el" href="#adc0e9fa0dfac0072bd92a5ea1f63ae3f">GetJoueurCourant</a> ()</td></tr>
+<tr class="memitem:a90377196ca296342a1ea56f61529fca4" id="r_a90377196ca296342a1ea56f61529fca4"><td class="memItemLeft"><a class="el" href="classchess_1_1_joueur.html">Joueur</a>&#160;</td><td class="memItemRight"><a class="el" href="#a90377196ca296342a1ea56f61529fca4">GetJoueurAdverse</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Propriétés</h2></td></tr>
+<tr class="memitem:a4d95ba3075b639fe352afc459bcc70aa" id="r_a4d95ba3075b639fe352afc459bcc70aa"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4d95ba3075b639fe352afc459bcc70aa">Tour</a><code> [get]</code></td></tr>
+<tr class="memitem:ab0392f9123f63dcef217c94e0bfc6ccf" id="r_ab0392f9123f63dcef217c94e0bfc6ccf"><td class="memItemLeft"><a class="el" href="classchess_1_1_joueur.html">Joueur</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0392f9123f63dcef217c94e0bfc6ccf">JoueurBlanc</a><code> [get]</code></td></tr>
+<tr class="memitem:a5b83c02f24b22347dd2bd25ff760cdd4" id="r_a5b83c02f24b22347dd2bd25ff760cdd4"><td class="memItemLeft"><a class="el" href="classchess_1_1_joueur.html">Joueur</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5b83c02f24b22347dd2bd25ff760cdd4">JoueurNoir</a><code> [get]</code></td></tr>
+<tr class="memitem:a59d85f7b8a2a4dbf289aefb92d0a41ff" id="r_a59d85f7b8a2a4dbf289aefb92d0a41ff"><td class="memItemLeft">Plateau&#160;</td><td class="memItemRight"><a class="el" href="#a59d85f7b8a2a4dbf289aefb92d0a41ff">Plateau</a><code> [get]</code></td></tr>
+<tr class="memitem:a4f2b48bb24d1e2686fc1e6ee77e37e92" id="r_a4f2b48bb24d1e2686fc1e6ee77e37e92"><td class="memItemLeft"><a class="el" href="classchess_1_1_coup.html">Coup</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4f2b48bb24d1e2686fc1e6ee77e37e92">DernierCoup</a><code> [get]</code></td></tr>
+<tr class="memitem:ab0d837f86f96225d721e217e35115d4a" id="r_ab0d837f86f96225d721e217e35115d4a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab0d837f86f96225d721e217e35115d4a">DernierCoupEtaitDoublePasPion</a><code> [get]</code></td></tr>
+<tr class="memitem:ae69029e442ccfaa40c54e7d416c0c282" id="r_ae69029e442ccfaa40c54e7d416c0c282"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae69029e442ccfaa40c54e7d416c0c282">PartieEstTerminee</a><code> [get]</code></td></tr>
+<tr class="memitem:ae8f213ec8d2550133380afd1068eceb0" id="r_ae8f213ec8d2550133380afd1068eceb0"><td class="memItemLeft"><a class="el" href="namespacechess.html#a06824974738c453f9bb45f3507dc38ac">ResultatPartie</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae8f213ec8d2550133380afd1068eceb0">Resultat</a><code> [get]</code></td></tr>
+<tr class="memitem:a474dcd2094a0198fd4d494f3bbf75076" id="r_a474dcd2094a0198fd4d494f3bbf75076"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a474dcd2094a0198fd4d494f3bbf75076">PointageAttribue</a><code> [get]</code></td></tr>
+<tr class="memitem:a44cd60dd2263bddb9400d950f9c1d019" id="r_a44cd60dd2263bddb9400d950f9c1d019"><td class="memItemLeft">string&#160;</td><td class="memItemRight"><a class="el" href="#a44cd60dd2263bddb9400d950f9c1d019">MessageDernierEvenement</a><code> [get]</code></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Contient l'etat complet d'une partie d'echecs et applique les regles du jeu. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00011">11</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Documentation des constructeurs et destructeur</h2>
+<a id="a9b351ff8ae93320811eead87486d23c2" name="a9b351ff8ae93320811eead87486d23c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b351ff8ae93320811eead87486d23c2">&#9670;&#160;</a></span>Partie() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">chess.Partie.Partie </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_joueur.html">Joueur</a></td>          <td class="paramname"><span class="paramname"><em>joueurBlanc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_joueur.html">Joueur</a></td>          <td class="paramname"><span class="paramname"><em>joueurNoir</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00016">16</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a35991fff5dc9adf7896738cd3c471e72" name="a35991fff5dc9adf7896738cd3c471e72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35991fff5dc9adf7896738cd3c471e72">&#9670;&#160;</a></span>Partie() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">chess.Partie.Partie </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_joueur.html">Joueur</a></td>          <td class="paramname"><span class="paramname"><em>joueurBlanc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_joueur.html">Joueur</a></td>          <td class="paramname"><span class="paramname"><em>joueurNoir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a59d85f7b8a2a4dbf289aefb92d0a41ff">Plateau</a></td>          <td class="paramname"><span class="paramname"><em>plateau</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tour</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_coup.html">Coup</a></td>          <td class="paramname"><span class="paramname"><em>dernierCoup</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dernierCoupEtaitPion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dernierCoupEtaitDoublePasPion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>partieEstTerminee</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>messageDernierEvenement</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacechess.html#a06824974738c453f9bb45f3507dc38ac">ResultatPartie</a></td>          <td class="paramname"><span class="paramname"><em>resultat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>pointageAttribue</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00028">28</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentation des fonctions membres</h2>
+<a id="a4705cad8ba3d761d87e99eb2846f7484" name="a4705cad8ba3d761d87e99eb2846f7484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4705cad8ba3d761d87e99eb2846f7484">&#9670;&#160;</a></span>AbandonnerPartie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void chess.Partie.AbandonnerPartie </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00159">159</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a752ccb24edc4c516012edbaff575a4a7" name="a752ccb24edc4c516012edbaff575a4a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a752ccb24edc4c516012edbaff575a4a7">&#9670;&#160;</a></span>ChangerTour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void chess.Partie.ChangerTour </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00154">154</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a6dcc213862c4df88cbd71352a46d390a" name="a6dcc213862c4df88cbd71352a46d390a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dcc213862c4df88cbd71352a46d390a">&#9670;&#160;</a></span>DemanderNulle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.DemanderNulle </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>acceptee</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00173">173</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="ac69e89a5c085014d92ec92912bcb91b1" name="ac69e89a5c085014d92ec92912bcb91b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69e89a5c085014d92ec92912bcb91b1">&#9670;&#160;</a></span>EstEchecEtMat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.EstEchecEtMat </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>couleur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00144">144</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a6bb9e5c3303f5f43c3547fbf9a0c0d3d" name="a6bb9e5c3303f5f43c3547fbf9a0c0d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bb9e5c3303f5f43c3547fbf9a0c0d3d">&#9670;&#160;</a></span>EstEnEchec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.EstEnEchec </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>couleur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00139">139</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a272342a544946b0064977cb31ad51fdb" name="a272342a544946b0064977cb31ad51fdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272342a544946b0064977cb31ad51fdb">&#9670;&#160;</a></span>EstPat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.EstPat </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>couleur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00149">149</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a90377196ca296342a1ea56f61529fca4" name="a90377196ca296342a1ea56f61529fca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90377196ca296342a1ea56f61529fca4">&#9670;&#160;</a></span>GetJoueurAdverse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classchess_1_1_joueur.html">Joueur</a> chess.Partie.GetJoueurAdverse </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00196">196</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="adc0e9fa0dfac0072bd92a5ea1f63ae3f" name="adc0e9fa0dfac0072bd92a5ea1f63ae3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0e9fa0dfac0072bd92a5ea1f63ae3f">&#9670;&#160;</a></span>GetJoueurCourant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classchess_1_1_joueur.html">Joueur</a> chess.Partie.GetJoueurCourant </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00191">191</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="add9ed5bb965125ed6ab088f3e9489dc9" name="add9ed5bb965125ed6ab088f3e9489dc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add9ed5bb965125ed6ab088f3e9489dc9">&#9670;&#160;</a></span>JouerCoup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.JouerCoup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_coup.html">Coup</a></td>          <td class="paramname"><span class="paramname"><em>coup</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00077">77</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a86be04671e5a716ccc7dcfc97829170e" name="a86be04671e5a716ccc7dcfc97829170e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86be04671e5a716ccc7dcfc97829170e">&#9670;&#160;</a></span>MarquerPointageAttribue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void chess.Partie.MarquerPointageAttribue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00186">186</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="aadd205a81c9d93b8d78b9211b8d05af0" name="aadd205a81c9d93b8d78b9211b8d05af0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadd205a81c9d93b8d78b9211b8d05af0">&#9670;&#160;</a></span>ObtenirCoupsLegaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IList&lt; <a class="el" href="classchess_1_1_position.html">Position</a> &gt; chess.Partie.ObtenirCoupsLegaux </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_position.html">Position</a></td>          <td class="paramname"><span class="paramname"><em>depart</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00095">95</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="aa399614554dab04d78ebd7ffb894d463" name="aa399614554dab04d78ebd7ffb894d463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa399614554dab04d78ebd7ffb894d463">&#9670;&#160;</a></span>ValiderEtJouerCoup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacechess.html#a216a0d5624054cd9600a9a2abc9193fe">RaisonCoupInvalide</a> chess.Partie.ValiderEtJouerCoup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classchess_1_1_coup.html">Coup</a></td>          <td class="paramname"><span class="paramname"><em>coup</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00082">82</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a2d36ea9bed8e439b147a65f8b0f796bf" name="a2d36ea9bed8e439b147a65f8b0f796bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d36ea9bed8e439b147a65f8b0f796bf">&#9670;&#160;</a></span>VerifierEchec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.VerifierEchec </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00134">134</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Documentation des propriétés</h2>
+<a id="a4f2b48bb24d1e2686fc1e6ee77e37e92" name="a4f2b48bb24d1e2686fc1e6ee77e37e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f2b48bb24d1e2686fc1e6ee77e37e92">&#9670;&#160;</a></span>DernierCoup</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classchess_1_1_coup.html">Coup</a> chess.Partie.DernierCoup</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00065">65</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="ab0d837f86f96225d721e217e35115d4a" name="ab0d837f86f96225d721e217e35115d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0d837f86f96225d721e217e35115d4a">&#9670;&#160;</a></span>DernierCoupEtaitDoublePasPion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.DernierCoupEtaitDoublePasPion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00067">67</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="ab0392f9123f63dcef217c94e0bfc6ccf" name="ab0392f9123f63dcef217c94e0bfc6ccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0392f9123f63dcef217c94e0bfc6ccf">&#9670;&#160;</a></span>JoueurBlanc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classchess_1_1_joueur.html">Joueur</a> chess.Partie.JoueurBlanc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00059">59</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a5b83c02f24b22347dd2bd25ff760cdd4" name="a5b83c02f24b22347dd2bd25ff760cdd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b83c02f24b22347dd2bd25ff760cdd4">&#9670;&#160;</a></span>JoueurNoir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classchess_1_1_joueur.html">Joueur</a> chess.Partie.JoueurNoir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00061">61</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a44cd60dd2263bddb9400d950f9c1d019" name="a44cd60dd2263bddb9400d950f9c1d019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44cd60dd2263bddb9400d950f9c1d019">&#9670;&#160;</a></span>MessageDernierEvenement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string chess.Partie.MessageDernierEvenement</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00075">75</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="ae69029e442ccfaa40c54e7d416c0c282" name="ae69029e442ccfaa40c54e7d416c0c282"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae69029e442ccfaa40c54e7d416c0c282">&#9670;&#160;</a></span>PartieEstTerminee</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.PartieEstTerminee</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00069">69</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a59d85f7b8a2a4dbf289aefb92d0a41ff" name="a59d85f7b8a2a4dbf289aefb92d0a41ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d85f7b8a2a4dbf289aefb92d0a41ff">&#9670;&#160;</a></span>Plateau</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Plateau chess.Partie.Plateau</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00063">63</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a474dcd2094a0198fd4d494f3bbf75076" name="a474dcd2094a0198fd4d494f3bbf75076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a474dcd2094a0198fd4d494f3bbf75076">&#9670;&#160;</a></span>PointageAttribue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool chess.Partie.PointageAttribue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00073">73</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="ae8f213ec8d2550133380afd1068eceb0" name="ae8f213ec8d2550133380afd1068eceb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f213ec8d2550133380afd1068eceb0">&#9670;&#160;</a></span>Resultat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacechess.html#a06824974738c453f9bb45f3507dc38ac">ResultatPartie</a> chess.Partie.Resultat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00071">71</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<a id="a4d95ba3075b639fe352afc459bcc70aa" name="a4d95ba3075b639fe352afc459bcc70aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d95ba3075b639fe352afc459bcc70aa">&#9670;&#160;</a></span>Tour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chess.Partie.Tour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_partie_8cs_source.html#l00057">57</a> du fichier <a class="el" href="_partie_8cs_source.html">Partie.cs</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>chess/Modele/<a class="el" href="_partie_8cs_source.html">Partie.cs</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacechess.html">chess</a></li><li class="navelem"><a href="classchess_1_1_partie.html">Partie</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

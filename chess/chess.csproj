@@ -58,6 +58,7 @@
     <Compile Include="Modele\Plateau.cs" />
     <Compile Include="Modele\Position.cs" />
     <Compile Include="Modele\RaisonCoupInvalide.cs" />
+    <Compile Include="Modele\ResultatPartie.cs" />
     <Compile Include="Modele\Reine.cs" />
     <Compile Include="Modele\Roi.cs" />
     <Compile Include="Modele\Tour.cs" />
@@ -99,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="Assets\Pieces\png\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

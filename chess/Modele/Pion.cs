@@ -4,8 +4,8 @@ namespace chess
 {
     public class Pion : Piece
     {
-        public Pion(string couleur, Position position)
-            : base(couleur, position)
+        public Pion(string couleur, Position position, bool aDejaBouge = false)
+            : base(couleur, position, aDejaBouge)
         {
         }
 
@@ -41,6 +41,11 @@ namespace chess
                 && deltaLigne == direction
                 && pieceDestination != null
                 && pieceDestination.Couleur != Couleur;
+        }
+
+        public override Piece Copier()
+        {
+            return new Pion(Couleur, new Position(Position), ADejaBouge);
         }
     }
 }

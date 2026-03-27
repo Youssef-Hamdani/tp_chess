@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TP Echecs MVC:  Fichier source de chess/Modele/Roi.cs</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">TP Echecs MVC
+   </div>
+   <div id="projectbrief">Application WinForms d&#39;echecs en architecture MVC</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_roi_8cs_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Roi.cs</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_roi_8cs.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>System;</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacechess.html">chess</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="classchess_1_1_roi.html">    5</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_function" href="classchess_1_1_roi.html#a07ef2775afb33cc18668ae78323e4d9a">Roi</a> : <a class="code hl_function" href="classchess_1_1_piece.html#a81b4975bfe87dc93df919df92176c93c">Piece</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    {</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classchess_1_1_roi.html#a07ef2775afb33cc18668ae78323e4d9a">    7</a></span>        <span class="keyword">public</span> <a class="code hl_function" href="classchess_1_1_roi.html#a07ef2775afb33cc18668ae78323e4d9a">Roi</a>(<span class="keywordtype">string</span> couleur, <a class="code hl_property" href="classchess_1_1_piece.html#a4ea9d547f4b855f944328699def39333">Position</a> position, <span class="keywordtype">bool</span> aDejaBouge = <span class="keyword">false</span>)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>            : base(couleur, position, aDejaBouge)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        }</div>
+</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classchess_1_1_roi.html#a68026f6804998c6eef75082500e984b9">   12</a></span>        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keywordtype">string</span> <a class="code hl_property" href="classchess_1_1_roi.html#a68026f6804998c6eef75082500e984b9">Symbole</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keyword">get</span> { <span class="keywordflow">return</span> <a class="code hl_property" href="classchess_1_1_piece.html#aea094b56e5f106c6118c57e89073f118">Couleur</a> == <span class="stringliteral">&quot;Blanc&quot;</span> ? <span class="stringliteral">&quot;RB&quot;</span> : <span class="stringliteral">&quot;RN&quot;</span>; }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        }</div>
+</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classchess_1_1_roi.html#a6a007b83bbcb2e246b41497e104b6d15">   17</a></span>        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classchess_1_1_roi.html#a6a007b83bbcb2e246b41497e104b6d15">MouvementValide</a>(<a class="code hl_class" href="classchess_1_1_coup.html">Coup</a> coup, <a class="code hl_class" href="classchess_1_1_plateau.html">Plateau</a> plateau)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <span class="keywordtype">int</span> deltaLigne = Math.Abs(coup.<a class="code hl_property" href="classchess_1_1_coup.html#a73f2f11c6a01624bf2ed679d74065e8d">PositionArrivee</a>.<a class="code hl_property" href="classchess_1_1_position.html#aba91c9ea838f572851b06354884eff80">Ligne</a> - coup.<a class="code hl_property" href="classchess_1_1_coup.html#a5feddfe8e526e30dc8e459facdd5e92c">PositionDepart</a>.<a class="code hl_property" href="classchess_1_1_position.html#aba91c9ea838f572851b06354884eff80">Ligne</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            <span class="keywordtype">int</span> deltaColonne = Math.Abs(coup.<a class="code hl_property" href="classchess_1_1_coup.html#a73f2f11c6a01624bf2ed679d74065e8d">PositionArrivee</a>.<a class="code hl_property" href="classchess_1_1_position.html#a0c9ff38adc5ece75b3a4b5ada3447bb4">Colonne</a> - coup.<a class="code hl_property" href="classchess_1_1_coup.html#a5feddfe8e526e30dc8e459facdd5e92c">PositionDepart</a>.<a class="code hl_property" href="classchess_1_1_position.html#a0c9ff38adc5ece75b3a4b5ada3447bb4">Colonne</a>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <span class="keywordflow">return</span> deltaLigne &lt;= 1 &amp;&amp; deltaColonne &lt;= 1 &amp;&amp; (deltaLigne + deltaColonne &gt; 0);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        }</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classchess_1_1_roi.html#ab3901ecd9e94fad44df5cb2909edb4cc">   24</a></span>        <span class="keyword">public</span> <span class="keyword">override</span> <a class="code hl_function" href="classchess_1_1_piece.html#a81b4975bfe87dc93df919df92176c93c">Piece</a> <a class="code hl_function" href="classchess_1_1_roi.html#ab3901ecd9e94fad44df5cb2909edb4cc">Copier</a>()</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="classchess_1_1_roi.html#a07ef2775afb33cc18668ae78323e4d9a">Roi</a>(<a class="code hl_property" href="classchess_1_1_piece.html#aea094b56e5f106c6118c57e89073f118">Couleur</a>, <span class="keyword">new</span> <a class="code hl_property" href="classchess_1_1_piece.html#a4ea9d547f4b855f944328699def39333">Position</a>(<a class="code hl_property" href="classchess_1_1_piece.html#a4ea9d547f4b855f944328699def39333">Position</a>), <a class="code hl_property" href="classchess_1_1_piece.html#a5258adbf44d71d18e0a98c1c69260a1d">ADejaBouge</a>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        }</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="ttc" id="aclasschess_1_1_coup_html"><div class="ttname"><a href="classchess_1_1_coup.html">chess.Coup</a></div><div class="ttdoc">Represente un mouvement entre deux positions du plateau.</div><div class="ttdef"><b>Definition</b> <a href="_coup_8cs_source.html#l00006">Coup.cs:7</a></div></div>
+<div class="ttc" id="aclasschess_1_1_coup_html_a5feddfe8e526e30dc8e459facdd5e92c"><div class="ttname"><a href="classchess_1_1_coup.html#a5feddfe8e526e30dc8e459facdd5e92c">chess.Coup.PositionDepart</a></div><div class="ttdeci">Position PositionDepart</div><div class="ttdef"><b>Definition</b> <a href="_coup_8cs_source.html#l00026">Coup.cs:26</a></div></div>
+<div class="ttc" id="aclasschess_1_1_coup_html_a73f2f11c6a01624bf2ed679d74065e8d"><div class="ttname"><a href="classchess_1_1_coup.html#a73f2f11c6a01624bf2ed679d74065e8d">chess.Coup.PositionArrivee</a></div><div class="ttdeci">Position PositionArrivee</div><div class="ttdef"><b>Definition</b> <a href="_coup_8cs_source.html#l00028">Coup.cs:28</a></div></div>
+<div class="ttc" id="aclasschess_1_1_piece_html_a4ea9d547f4b855f944328699def39333"><div class="ttname"><a href="classchess_1_1_piece.html#a4ea9d547f4b855f944328699def39333">chess.Piece.Position</a></div><div class="ttdeci">Position Position</div><div class="ttdef"><b>Definition</b> <a href="_piece_8cs_source.html#l00017">Piece.cs:17</a></div></div>
+<div class="ttc" id="aclasschess_1_1_piece_html_a5258adbf44d71d18e0a98c1c69260a1d"><div class="ttname"><a href="classchess_1_1_piece.html#a5258adbf44d71d18e0a98c1c69260a1d">chess.Piece.ADejaBouge</a></div><div class="ttdeci">bool ADejaBouge</div><div class="ttdef"><b>Definition</b> <a href="_piece_8cs_source.html#l00019">Piece.cs:19</a></div></div>
+<div class="ttc" id="aclasschess_1_1_piece_html_a81b4975bfe87dc93df919df92176c93c"><div class="ttname"><a href="classchess_1_1_piece.html#a81b4975bfe87dc93df919df92176c93c">chess.Piece.Piece</a></div><div class="ttdeci">Piece(string couleur, Position position, bool aDejaBouge=false)</div><div class="ttdef"><b>Definition</b> <a href="_piece_8cs_source.html#l00008">Piece.cs:8</a></div></div>
+<div class="ttc" id="aclasschess_1_1_piece_html_aea094b56e5f106c6118c57e89073f118"><div class="ttname"><a href="classchess_1_1_piece.html#aea094b56e5f106c6118c57e89073f118">chess.Piece.Couleur</a></div><div class="ttdeci">string Couleur</div><div class="ttdef"><b>Definition</b> <a href="_piece_8cs_source.html#l00015">Piece.cs:15</a></div></div>
+<div class="ttc" id="aclasschess_1_1_plateau_html"><div class="ttname"><a href="classchess_1_1_plateau.html">chess.Plateau</a></div><div class="ttdoc">Represente le plateau d&#39;echecs et les pieces qui l&#39;occupent.</div><div class="ttdef"><b>Definition</b> <a href="_plateau_8cs_source.html#l00011">Plateau.cs:12</a></div></div>
+<div class="ttc" id="aclasschess_1_1_position_html_a0c9ff38adc5ece75b3a4b5ada3447bb4"><div class="ttname"><a href="classchess_1_1_position.html#a0c9ff38adc5ece75b3a4b5ada3447bb4">chess.Position.Colonne</a></div><div class="ttdeci">int Colonne</div><div class="ttdef"><b>Definition</b> <a href="_position_8cs_source.html#l00026">Position.cs:26</a></div></div>
+<div class="ttc" id="aclasschess_1_1_position_html_aba91c9ea838f572851b06354884eff80"><div class="ttname"><a href="classchess_1_1_position.html#aba91c9ea838f572851b06354884eff80">chess.Position.Ligne</a></div><div class="ttdeci">int Ligne</div><div class="ttdef"><b>Definition</b> <a href="_position_8cs_source.html#l00024">Position.cs:24</a></div></div>
+<div class="ttc" id="aclasschess_1_1_roi_html_a07ef2775afb33cc18668ae78323e4d9a"><div class="ttname"><a href="classchess_1_1_roi.html#a07ef2775afb33cc18668ae78323e4d9a">chess.Roi.Roi</a></div><div class="ttdeci">Roi(string couleur, Position position, bool aDejaBouge=false)</div><div class="ttdef"><b>Definition</b> <a href="#l00007">Roi.cs:7</a></div></div>
+<div class="ttc" id="aclasschess_1_1_roi_html_a68026f6804998c6eef75082500e984b9"><div class="ttname"><a href="classchess_1_1_roi.html#a68026f6804998c6eef75082500e984b9">chess.Roi.Symbole</a></div><div class="ttdeci">override string Symbole</div><div class="ttdef"><b>Definition</b> <a href="#l00012">Roi.cs:13</a></div></div>
+<div class="ttc" id="aclasschess_1_1_roi_html_a6a007b83bbcb2e246b41497e104b6d15"><div class="ttname"><a href="classchess_1_1_roi.html#a6a007b83bbcb2e246b41497e104b6d15">chess.Roi.MouvementValide</a></div><div class="ttdeci">override bool MouvementValide(Coup coup, Plateau plateau)</div><div class="ttdef"><b>Definition</b> <a href="#l00017">Roi.cs:17</a></div></div>
+<div class="ttc" id="aclasschess_1_1_roi_html_ab3901ecd9e94fad44df5cb2909edb4cc"><div class="ttname"><a href="classchess_1_1_roi.html#ab3901ecd9e94fad44df5cb2909edb4cc">chess.Roi.Copier</a></div><div class="ttdeci">override Piece Copier()</div><div class="ttdef"><b>Definition</b> <a href="#l00024">Roi.cs:24</a></div></div>
+<div class="ttc" id="anamespacechess_html"><div class="ttname"><a href="namespacechess.html">chess</a></div><div class="ttdef"><b>Definition</b> <a href="_echec_controlleur_8cs_source.html#l00005">EchecControlleur.cs:6</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_6d86088f2652777a7b9f92e683f4b85c.html">chess</a></li><li class="navelem"><a href="dir_1e957896c9a234ebf3bb4cedfd187a4b.html">Modele</a></li><li class="navelem"><a href="_roi_8cs.html">Roi.cs</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

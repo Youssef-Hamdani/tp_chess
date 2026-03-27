@@ -5,9 +5,29 @@ using System.Text;
 
 namespace chess
 {
+    /// <summary>
+    /// Represente le plateau d'echecs et les pieces qui l'occupent.
+    /// </summary>
     public class Plateau
     {
         private readonly List<Piece> pieces = new List<Piece>();
+
+        public Plateau()
+        {
+        }
+
+        public Plateau(Plateau autre)
+        {
+            if (autre == null)
+            {
+                return;
+            }
+
+            foreach (Piece piece in autre.pieces)
+            {
+                pieces.Add(piece.Copier());
+            }
+        }
 
         public IReadOnlyList<Piece> Pieces
         {
@@ -30,19 +50,76 @@ namespace chess
                 piece.Position.Ligne == pos.Ligne && piece.Position.Colonne == pos.Colonne);
         }
 
-        public void DeplacerPiece(Coup coup)
+        public void AjouterPiece(Piece piece)
+        {
+            if (piece != null)
+            {
+                pieces.Add(piece);
+            }
+        }
+
+        public IEnumerable<Piece> ObtenirPieces(string couleur)
+        {
+            return pieces.Where(piece => piece.Couleur == couleur);
+        }
+
+        public Piece ObtenirRoi(string couleur)
+        {
+            return pieces.FirstOrDefault(piece => piece.Couleur == couleur && piece is Roi);
+        }
+
+        public void DeplacerPiece(Coup coup, bool priseEnPassant = false)
         {
             Piece piece = ObtenirPiece(coup.PositionDepart);
-            Piece pieceDestination = ObtenirPiece(coup.PositionArrivee);
 
-            if (pieceDestination != null)
+            if (piece == null)
             {
-                pieces.Remove(pieceDestination);
+                return;
             }
+
+            if (priseEnPassant)
+            {
+                int lignePieceCapturee = coup.PositionDepart.Ligne;
+                RetirerPiece(new Position(lignePieceCapturee, coup.PositionArrivee.Colonne));
+            }
+            else
+            {
+                RetirerPiece(coup.PositionArrivee);
+            }
+
+            piece.Bouger(new Position(coup.PositionArrivee.Ligne, coup.PositionArrivee.Colonne));
+        }
+
+        public void DeplacerTourPourRoque(string couleur, bool grandRoque)
+        {
+            int ligne = couleur == "Blanc" ? 7 : 0;
+            Position departTour = new Position(ligne, grandRoque ? 0 : 7);
+            Position arriveeTour = new Position(ligne, grandRoque ? 3 : 5);
+            Piece tour = ObtenirPiece(departTour);
+
+            if (tour != null)
+            {
+                tour.Bouger(arriveeTour);
+            }
+        }
+
+        public void RemplacerPiece(Position position, Piece nouvellePiece)
+        {
+            RetirerPiece(position);
+
+            if (nouvellePiece != null)
+            {
+                pieces.Add(nouvellePiece);
+            }
+        }
+
+        public void RetirerPiece(Position position)
+        {
+            Piece piece = ObtenirPiece(position);
 
             if (piece != null)
             {
-                piece.Bouger(new Position(coup.PositionArrivee.Ligne, coup.PositionArrivee.Colonne));
+                pieces.Remove(piece);
             }
         }
 
