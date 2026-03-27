@@ -18,6 +18,8 @@ namespace chess
         private System.Windows.Forms.Button btnAbandonner;
         private System.Windows.Forms.Button btnDemanderNulle;
         private System.Windows.Forms.Button btnQuitter;
+        private System.Windows.Forms.Label lblJoueurHaut;
+        private System.Windows.Forms.Label lblJoueurBas;
 
         protected override void Dispose(bool disposing)
         {
@@ -46,6 +48,8 @@ namespace chess
             this.btnAbandonner = new System.Windows.Forms.Button();
             this.btnDemanderNulle = new System.Windows.Forms.Button();
             this.btnQuitter = new System.Windows.Forms.Button();
+            this.lblJoueurHaut = new System.Windows.Forms.Label();
+            this.lblJoueurBas = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlateau)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartLigne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepartColonne)).BeginInit();
@@ -60,7 +64,7 @@ namespace chess
             this.dgvPlateau.AllowUserToResizeColumns = false;
             this.dgvPlateau.AllowUserToResizeRows = false;
             this.dgvPlateau.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPlateau.Location = new System.Drawing.Point(12, 12);
+            this.dgvPlateau.Location = new System.Drawing.Point(12, 34);
             this.dgvPlateau.MultiSelect = false;
             this.dgvPlateau.Name = "dgvPlateau";
             this.dgvPlateau.ReadOnly = true;
@@ -71,7 +75,7 @@ namespace chess
             // 
             // nudDepartLigne
             // 
-            this.nudDepartLigne.Location = new System.Drawing.Point(402, 82);
+            this.nudDepartLigne.Location = new System.Drawing.Point(418, 84);
             this.nudDepartLigne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -83,7 +87,7 @@ namespace chess
             // 
             // nudDepartColonne
             // 
-            this.nudDepartColonne.Location = new System.Drawing.Point(483, 82);
+            this.nudDepartColonne.Location = new System.Drawing.Point(499, 84);
             this.nudDepartColonne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -95,7 +99,7 @@ namespace chess
             // 
             // nudArriveeLigne
             // 
-            this.nudArriveeLigne.Location = new System.Drawing.Point(402, 146);
+            this.nudArriveeLigne.Location = new System.Drawing.Point(418, 148);
             this.nudArriveeLigne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -107,7 +111,7 @@ namespace chess
             // 
             // nudArriveeColonne
             // 
-            this.nudArriveeColonne.Location = new System.Drawing.Point(483, 146);
+            this.nudArriveeColonne.Location = new System.Drawing.Point(499, 148);
             this.nudArriveeColonne.Maximum = new decimal(new int[] {
             7,
             0,
@@ -119,7 +123,7 @@ namespace chess
             // 
             // btnJouerCoup
             // 
-            this.btnJouerCoup.Location = new System.Drawing.Point(402, 190);
+            this.btnJouerCoup.Location = new System.Drawing.Point(418, 192);
             this.btnJouerCoup.Name = "btnJouerCoup";
             this.btnJouerCoup.Size = new System.Drawing.Size(145, 35);
             this.btnJouerCoup.TabIndex = 5;
@@ -129,7 +133,7 @@ namespace chess
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(402, 362);
+            this.lblMessage.Location = new System.Drawing.Point(415, 344);
             this.lblMessage.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(103, 13);
@@ -139,7 +143,7 @@ namespace chess
             // lblTour
             // 
             this.lblTour.AutoSize = true;
-            this.lblTour.Location = new System.Drawing.Point(399, 24);
+            this.lblTour.Location = new System.Drawing.Point(415, 26);
             this.lblTour.MaximumSize = new System.Drawing.Size(180, 0);
             this.lblTour.Name = "lblTour";
             this.lblTour.Size = new System.Drawing.Size(26, 13);
@@ -149,7 +153,7 @@ namespace chess
             // lblDepart
             // 
             this.lblDepart.AutoSize = true;
-            this.lblDepart.Location = new System.Drawing.Point(402, 61);
+            this.lblDepart.Location = new System.Drawing.Point(418, 63);
             this.lblDepart.Name = "lblDepart";
             this.lblDepart.Size = new System.Drawing.Size(114, 13);
             this.lblDepart.TabIndex = 8;
@@ -158,7 +162,7 @@ namespace chess
             // lblArrivee
             // 
             this.lblArrivee.AutoSize = true;
-            this.lblArrivee.Location = new System.Drawing.Point(402, 125);
+            this.lblArrivee.Location = new System.Drawing.Point(418, 127);
             this.lblArrivee.Name = "lblArrivee";
             this.lblArrivee.Size = new System.Drawing.Size(115, 13);
             this.lblArrivee.TabIndex = 9;
@@ -166,7 +170,7 @@ namespace chess
             // 
             // btnSauvegarderPartie
             // 
-            this.btnSauvegarderPartie.Location = new System.Drawing.Point(402, 325);
+            this.btnSauvegarderPartie.Location = new System.Drawing.Point(296, 416);
             this.btnSauvegarderPartie.Name = "btnSauvegarderPartie";
             this.btnSauvegarderPartie.Size = new System.Drawing.Size(145, 30);
             this.btnSauvegarderPartie.TabIndex = 10;
@@ -178,7 +182,7 @@ namespace chess
             this.chkRetournerSelonTour.AutoSize = true;
             this.chkRetournerSelonTour.Checked = true;
             this.chkRetournerSelonTour.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRetournerSelonTour.Location = new System.Drawing.Point(402, 231);
+            this.chkRetournerSelonTour.Location = new System.Drawing.Point(418, 233);
             this.chkRetournerSelonTour.Name = "chkRetournerSelonTour";
             this.chkRetournerSelonTour.Size = new System.Drawing.Size(133, 17);
             this.chkRetournerSelonTour.TabIndex = 11;
@@ -187,7 +191,7 @@ namespace chess
             // 
             // btnAbandonner
             // 
-            this.btnAbandonner.Location = new System.Drawing.Point(402, 254);
+            this.btnAbandonner.Location = new System.Drawing.Point(418, 256);
             this.btnAbandonner.Name = "btnAbandonner";
             this.btnAbandonner.Size = new System.Drawing.Size(145, 28);
             this.btnAbandonner.TabIndex = 12;
@@ -196,7 +200,7 @@ namespace chess
             // 
             // btnDemanderNulle
             // 
-            this.btnDemanderNulle.Location = new System.Drawing.Point(402, 288);
+            this.btnDemanderNulle.Location = new System.Drawing.Point(418, 290);
             this.btnDemanderNulle.Name = "btnDemanderNulle";
             this.btnDemanderNulle.Size = new System.Drawing.Size(145, 28);
             this.btnDemanderNulle.TabIndex = 13;
@@ -205,18 +209,40 @@ namespace chess
             // 
             // btnQuitter
             // 
-            this.btnQuitter.Location = new System.Drawing.Point(402, 385);
+            this.btnQuitter.Location = new System.Drawing.Point(452, 416);
             this.btnQuitter.Name = "btnQuitter";
             this.btnQuitter.Size = new System.Drawing.Size(145, 28);
             this.btnQuitter.TabIndex = 14;
             this.btnQuitter.Text = "Quitter";
             this.btnQuitter.UseVisualStyleBackColor = true;
             // 
+            // lblJoueurHaut
+            // 
+            this.lblJoueurHaut.AutoSize = true;
+            this.lblJoueurHaut.Location = new System.Drawing.Point(12, 12);
+            this.lblJoueurHaut.MaximumSize = new System.Drawing.Size(356, 0);
+            this.lblJoueurHaut.Name = "lblJoueurHaut";
+            this.lblJoueurHaut.Size = new System.Drawing.Size(49, 13);
+            this.lblJoueurHaut.TabIndex = 15;
+            this.lblJoueurHaut.Text = "Noirs : ---";
+            // 
+            // lblJoueurBas
+            // 
+            this.lblJoueurBas.AutoSize = true;
+            this.lblJoueurBas.Location = new System.Drawing.Point(12, 396);
+            this.lblJoueurBas.MaximumSize = new System.Drawing.Size(356, 0);
+            this.lblJoueurBas.Name = "lblJoueurBas";
+            this.lblJoueurBas.Size = new System.Drawing.Size(57, 13);
+            this.lblJoueurBas.TabIndex = 16;
+            this.lblJoueurBas.Text = "Blancs : ---";
+            // 
             // FormPartie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 423);
+            this.ClientSize = new System.Drawing.Size(625, 456);
+            this.Controls.Add(this.lblJoueurBas);
+            this.Controls.Add(this.lblJoueurHaut);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.btnDemanderNulle);
             this.Controls.Add(this.btnAbandonner);

@@ -74,11 +74,17 @@ namespace chess
 
         public string MessageDernierEvenement { get; private set; }
 
+        /// <summary>
+        /// Tente de jouer un coup et indique uniquement si l'operation reussit.
+        /// </summary>
         public bool JouerCoup(Coup coup)
         {
             return ValiderEtJouerCoup(coup) == RaisonCoupInvalide.Aucune;
         }
 
+        /// <summary>
+        /// Valide un coup puis le joue lorsque toutes les regles applicables sont respectees.
+        /// </summary>
         public RaisonCoupInvalide ValiderEtJouerCoup(Coup coup)
         {
             RaisonCoupInvalide validation = ValiderCoup(coup);
@@ -92,6 +98,9 @@ namespace chess
             return RaisonCoupInvalide.Aucune;
         }
 
+        /// <summary>
+        /// Retourne toutes les cases atteignables legalement a partir d'une position de depart.
+        /// </summary>
         public IList<Position> ObtenirCoupsLegaux(Position depart)
         {
             List<Position> coups = new List<Position>();
@@ -156,6 +165,9 @@ namespace chess
             Tour = Tour == 0 ? 1 : 0;
         }
 
+        /// <summary>
+        /// Termine la partie sur abandon du joueur dont c'est le tour.
+        /// </summary>
         public void AbandonnerPartie()
         {
             if (PartieEstTerminee)
@@ -170,6 +182,9 @@ namespace chess
             MessageDernierEvenement = GetJoueurCourant().Nom + " abandonne la partie.";
         }
 
+        /// <summary>
+        /// Termine la partie sur une nulle si la proposition est acceptee.
+        /// </summary>
         public bool DemanderNulle(bool acceptee)
         {
             if (!acceptee || PartieEstTerminee)
@@ -274,6 +289,8 @@ namespace chess
             bool promotion = false;
             List<string> evenements = new List<string>();
 
+            // La mise a jour materielle du plateau est concentree dans cette methode
+            // afin que le modele reste la source unique de verite sur la position.
             Plateau.DeplacerPiece(coup, estEnPassant);
 
             if (estRoque)
@@ -305,6 +322,8 @@ namespace chess
             ChangerTour();
             EnregistrerPositionCourante();
 
+            // Une fois le coup applique, on evalue les etats finaux dans l'ordre
+            // de lecture le plus utile pour l'interface.
             if (EstEnEchec(GetJoueurCourant().Couleur))
             {
                 if (!JoueurCourantPossedeCoupLegal())
@@ -446,6 +465,8 @@ namespace chess
 
         private bool LaisseRoiEnEchec(Coup coup, bool estRoque, bool estEnPassant, string couleur)
         {
+            // La verification se fait sur une copie du plateau pour eviter de
+            // modifier l'etat reel de la partie pendant la simulation.
             Plateau simulation = new Plateau(Plateau);
             SimulerCoup(simulation, coup, estRoque, estEnPassant);
             return EstEnEchecSurPlateau(couleur, simulation);

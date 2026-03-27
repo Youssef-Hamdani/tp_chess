@@ -20,9 +20,13 @@ namespace chess
         private readonly Color caseClaire = Color.FromArgb(247, 240, 221);
         private readonly Color caseFoncee = Color.FromArgb(212, 120, 32);
         private readonly Color caseSelectionnee = Color.FromArgb(188, 214, 141);
+        private readonly Color caseRoiEnEchec = Color.FromArgb(221, 91, 91);
         private string couleurJoueurCourant = "Blanc";
+        private string infoJoueurBlanc = "Blancs : -";
+        private string infoJoueurNoir = "Noirs : -";
         private bool plateauInverse;
         private Position positionSelectionnee;
+        private Position positionRoiEnEchec;
         private readonly List<Position> coupsPossibles = new List<Position>();
 
         public FormPartie()
@@ -47,6 +51,9 @@ namespace chess
 
         public Func<Position, IList<Position>> CoupsPossiblesDemandes { get; set; }
 
+        /// <summary>
+        /// Met a jour le contenu du plateau a partir d'une representation serialisee simple.
+        /// </summary>
         public void AfficherPlateau(string plateauSerialise)
         {
             ReinitialiserSelection();
@@ -78,12 +85,23 @@ namespace chess
                 new Position((int)nudArriveeLigne.Value, (int)nudArriveeColonne.Value));
         }
 
+        /// <summary>
+        /// Met a jour le texte d'etat et l'orientation dependant du joueur courant.
+        /// </summary>
         public void MettreAJourEtat(string etat)
         {
             lblTour.Text = "Etat : " + etat;
             couleurJoueurCourant = etat.IndexOf("Noir", StringComparison.OrdinalIgnoreCase) >= 0 ? "Noir" : "Blanc";
             AppliquerOrientationSelonTour();
+            RafraichirInformationsJoueurs();
             RafraichirPlateau();
+        }
+
+        public void MettreAJourJoueurs(string joueurBlanc, string joueurNoir)
+        {
+            infoJoueurBlanc = string.IsNullOrWhiteSpace(joueurBlanc) ? "Blancs : -" : joueurBlanc;
+            infoJoueurNoir = string.IsNullOrWhiteSpace(joueurNoir) ? "Noirs : -" : joueurNoir;
+            RafraichirInformationsJoueurs();
         }
 
         public void DefinirInteractionActive(bool active)
@@ -92,6 +110,12 @@ namespace chess
             btnJouerCoup.Enabled = active;
             btnAbandonner.Enabled = active;
             btnDemanderNulle.Enabled = active;
+        }
+
+        public void MettreEnEvidenceRoiEnEchec(Position position)
+        {
+            positionRoiEnEchec = position != null ? new Position(position) : null;
+            RafraichirPlateau();
         }
 
         private void InitialiserGrille()
@@ -173,6 +197,7 @@ namespace chess
         private void ChkRetournerSelonTour_CheckedChanged(object sender, EventArgs e)
         {
             AppliquerOrientationSelonTour();
+            RafraichirInformationsJoueurs();
             RafraichirPlateau();
         }
 
@@ -376,9 +401,17 @@ namespace chess
                     string code = codesCases[position.Ligne, position.Colonne];
                     DataGridViewCell cellule = dgvPlateau[colonneAffichage, ligneAffichage];
                     bool estSelectionnee = positionSelectionnee != null && positionSelectionnee.Equals(position);
+                    bool roiEnEchec = positionRoiEnEchec != null && positionRoiEnEchec.Equals(position);
                     bool estCoupPossible = EstCoupPossible(position);
                     bool estCapture = estCoupPossible && !string.IsNullOrWhiteSpace(code);
                     Color couleurCase = (position.Ligne + position.Colonne) % 2 == 0 ? caseClaire : caseFoncee;
+
+                    // L'information d'echec doit rester visible, mais la case
+                    // explicitement selectionnee par l'usager garde la priorite visuelle.
+                    if (roiEnEchec)
+                    {
+                        couleurCase = caseRoiEnEchec;
+                    }
 
                     if (estSelectionnee)
                     {
@@ -479,6 +512,30 @@ namespace chess
         {
             plateauInverse = chkRetournerSelonTour.Checked
                 && string.Equals(couleurJoueurCourant, "Noir", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void RafraichirInformationsJoueurs()
+        {
+            bool joueurBlancEnHaut = plateauInverse;
+
+            lblJoueurHaut.Text = joueurBlancEnHaut ? infoJoueurBlanc : infoJoueurNoir;
+            lblJoueurBas.Text = joueurBlancEnHaut ? infoJoueurNoir : infoJoueurBlanc;
+
+            bool joueurBlancCourant = string.Equals(couleurJoueurCourant, "Blanc", StringComparison.OrdinalIgnoreCase);
+            AppliquerStylePolice(lblJoueurHaut, (joueurBlancEnHaut == joueurBlancCourant) ? FontStyle.Bold : FontStyle.Regular);
+            AppliquerStylePolice(lblJoueurBas, (joueurBlancEnHaut != joueurBlancCourant) ? FontStyle.Bold : FontStyle.Regular);
+        }
+
+        private static void AppliquerStylePolice(Label label, FontStyle style)
+        {
+            if (label.Font.Style == style)
+            {
+                return;
+            }
+
+            Font anciennePolice = label.Font;
+            label.Font = new Font(anciennePolice, style);
+            anciennePolice.Dispose();
         }
 
         private Position ConvertirVersPositionPlateau(int ligneAffichage, int colonneAffichage)

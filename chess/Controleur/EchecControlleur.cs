@@ -36,6 +36,9 @@ namespace chess
             AfficherPartieCourante("Nouvelle partie initialisee.");
         }
 
+        /// <summary>
+        /// Recoit un coup provenant de la vue et orchestre sa validation puis la mise a jour de l'interface.
+        /// </summary>
         public void JouerCoup(Coup coup)
         {
             if (formPartie == null || modele.GetPartieCourante() == null)
@@ -58,6 +61,9 @@ namespace chess
             }
         }
 
+        /// <summary>
+        /// Charge une sauvegarde depuis le disque puis rafraichit les vues.
+        /// </summary>
         public void ChargerPartie()
         {
             using (OpenFileDialog dialogue = CreerDialogueChargement())
@@ -84,6 +90,9 @@ namespace chess
             }
         }
 
+        /// <summary>
+        /// Sauvegarde la partie courante sur le disque.
+        /// </summary>
         public void SauvegarderPartie()
         {
             if (modele.GetPartieCourante() == null)
@@ -136,6 +145,19 @@ namespace chess
                 return;
             }
 
+            Joueur joueurCourant = partie.GetJoueurCourant();
+            DialogResult confirmation = MessageBox.Show(
+                joueurCourant.Nom + " (" + joueurCourant.Couleur + ") abandonne-t-il la partie ?",
+                "Confirmer l'abandon",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmation != DialogResult.Yes)
+            {
+                formPartie.AfficherMessage("Abandon annule.");
+                return;
+            }
+
             partie.AbandonnerPartie();
             TraiterFinDePartieSiNecessaire(partie);
             AfficherPartieCourante(partie.MessageDernierEvenement);
@@ -151,8 +173,11 @@ namespace chess
                 return;
             }
 
+            Joueur joueurCourant = partie.GetJoueurCourant();
+            Joueur joueurAdverse = partie.GetJoueurAdverse();
             DialogResult resultat = MessageBox.Show(
-                "Le joueur adverse accepte-t-il la nulle ?",
+                joueurCourant.Nom + " (" + joueurCourant.Couleur + ") demande la nulle." + Environment.NewLine
+                    + joueurAdverse.Nom + " accepte-t-il la nulle ?",
                 "Demande de nulle",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -183,7 +208,11 @@ namespace chess
             AssurerFormPartie();
             Partie partie = modele.GetPartieCourante();
             formPartie.AfficherPlateau(partie.Plateau.SerialiserPourVue());
+            formPartie.MettreAJourJoueurs(
+                FormaterJoueur(partie.JoueurBlanc, "Blancs"),
+                FormaterJoueur(partie.JoueurNoir, "Noirs"));
             formPartie.MettreAJourEtat(ConstruireEtatPartie());
+            formPartie.MettreEnEvidenceRoiEnEchec(ObtenirPositionRoiEnEchec(partie));
             formPartie.AfficherMessage(message);
             formPartie.DefinirInteractionActive(!partie.PartieEstTerminee);
             formPartie.Show();
@@ -219,6 +248,8 @@ namespace chess
                 return;
             }
 
+            // Le pointage est applique une seule fois, puis la vue du menu est
+            // rechargee pour rester coherente avec la liste de joueurs.
             modele.AppliquerPointagePartieCourante();
             RafraichirMenuJoueurs();
 
@@ -287,6 +318,34 @@ namespace chess
             }
 
             return etat;
+        }
+
+        private static string FormaterJoueur(Joueur joueur, string etiquette)
+        {
+            if (joueur == null)
+            {
+                return etiquette + " : -";
+            }
+
+            return etiquette + " : " + joueur.Nom + " - Score : " + joueur.Pointage.ToString("0.##");
+        }
+
+        private static Position ObtenirPositionRoiEnEchec(Partie partie)
+        {
+            if (partie == null)
+            {
+                return null;
+            }
+
+            Joueur joueurCourant = partie.GetJoueurCourant();
+
+            if (joueurCourant == null || !partie.EstEnEchec(joueurCourant.Couleur))
+            {
+                return null;
+            }
+
+            Piece roi = partie.Plateau.ObtenirRoi(joueurCourant.Couleur);
+            return roi != null ? new Position(roi.Position) : null;
         }
 
         private string ObtenirMessageErreur(RaisonCoupInvalide raison)
